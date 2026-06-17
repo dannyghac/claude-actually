@@ -3,89 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Founder Kit · Claude, Actually</title>
-<meta name="description" content="A free curriculum that teaches anyone to start a real business with AI and a laptop. Five guides plus an interactive quest. A Claude, Actually giveaway.">
+<title>Claude, Actually · the Claude group where your post actually shows up</title>
+<meta name="description" content="The independent community for people who use, learn, and geek out about Claude and AI. Ask a real question, get a real answer, in public, where it can't be quietly deleted.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
-<meta property="og:title" content="The Founder Kit, free from Claude, Actually">
-<meta property="og:description" content="Build a real business with AI and a laptop, milestone by milestone. Five guides plus an interactive quest, at any budget. Free, no catch.">
+<meta property="og:title" content="Claude, Actually: the Claude group where your post actually shows up">
+<meta property="og:description" content="The independent Claude and AI community. Real questions, real answers, in public. Grab the free Founder Kit and come hang out with us.">
 <meta property="og:type" content="website">
-<style>
-  :root{
-    --bg:#fff7f2; --panel:#ffffff; --ink:#1c1714; --dim:#7a6a62;
-    --coral:#f0654f; --coral-deep:#d94f3a; --blue:#3a6ea5; --line:rgba(240,101,79,.18);
-    --sans:"Avenir Next","Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
-    --mono:"SF Mono","Menlo","Consolas",monospace;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{
-    background:
-      radial-gradient(900px 420px at 85% -8%, rgba(240,101,79,.10), transparent 60%),
-      radial-gradient(700px 380px at -5% 110%, rgba(58,110,165,.08), transparent 55%),
-      var(--bg);
-    color:var(--ink);font-family:var(--sans);line-height:1.6;
-    -webkit-font-smoothing:antialiased;min-height:100vh;
-  }
-  .wrap{width:min(840px,92vw);margin:0 auto;padding:40px 0 64px}
-
-  header{display:flex;align-items:center;gap:16px;margin-bottom:30px}
-  header img{width:62px;height:62px;border-radius:16px;box-shadow:0 8px 26px rgba(240,101,79,.22)}
-  header .ht{font-weight:800;font-size:18px;letter-spacing:-.01em}
-  header .hs{color:var(--dim);font-size:13px;margin-top:1px}
-
-  .hero{background:var(--panel);border:1px solid var(--line);border-radius:20px;
-    padding:38px 34px;box-shadow:0 24px 70px rgba(28,23,20,.07)}
-  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--coral-deep);font-weight:600}
-  h1{font-size:clamp(30px,6vw,46px);line-height:1.05;letter-spacing:-.02em;margin:10px 0 14px;font-weight:800}
-  h1 .u{color:var(--coral)}
-  .lede{font-size:17px;color:#3a302b;max-width:60ch}
-  .lede b{color:var(--ink)}
-  .free{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:13.5px;
-    color:var(--dim);font-family:var(--mono)}
-  .free .dot{width:8px;height:8px;border-radius:50%;background:#27b878;box-shadow:0 0 0 4px rgba(39,184,120,.16)}
-
-  .cta{display:block;margin-top:26px;background:var(--coral);color:#fff;text-decoration:none;
-    border-radius:14px;padding:20px 24px;box-shadow:0 14px 34px rgba(240,101,79,.34);
-    transition:transform .08s ease, box-shadow .2s ease}
-  .cta:hover{box-shadow:0 18px 44px rgba(240,101,79,.42);transform:translateY(-1px)}
-  .cta:active{transform:translateY(0)}
-  .cta .big{font-size:20px;font-weight:800;letter-spacing:-.01em}
-  .cta .small{font-size:13.5px;opacity:.92;margin-top:3px}
-  .cta .arrow{float:right;font-size:24px;line-height:1.2}
-
-  .sec{margin-top:46px}
-  .sec h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--coral-deep);
-    font-family:var(--mono);font-weight:600;margin-bottom:6px}
-  .sec .sub{color:var(--dim);font-size:14px;margin-bottom:18px;max-width:62ch}
-
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media (max-width:620px){ .grid{grid-template-columns:1fr} }
-  .card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
-    border-radius:14px;padding:18px 18px 16px;text-decoration:none;color:inherit;
-    transition:border-color .15s ease, transform .08s ease, box-shadow .2s ease}
-  .card:hover{border-color:var(--coral);transform:translateY(-2px);box-shadow:0 16px 38px rgba(28,23,20,.08)}
-  .card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--blue);text-transform:uppercase}
-  .card .t{font-weight:800;font-size:16.5px;margin:5px 0 4px;letter-spacing:-.01em}
-  .card .d{color:var(--dim);font-size:13.5px;flex:1}
-  .card .go{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--coral-deep);font-weight:600}
-
-  .note{margin-top:40px;background:rgba(58,110,165,.06);border:1px solid rgba(58,110,165,.18);
-    border-radius:14px;padding:20px 22px}
-  .note .t{font-weight:800;font-size:15px;margin-bottom:6px}
-  .note p{color:#3a302b;font-size:14px}
-
-  footer{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);
-    display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;
-    color:var(--dim);font-size:13px}
-  footer .sign{font-weight:700;color:var(--coral-deep)}
-  footer a{color:var(--blue);text-decoration:none;font-weight:600}
-  footer a:hover{text-decoration:underline}
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand here" href="index.html">
+      <img src="assets/logo.png" alt="Claude, Actually">
+      <span class="bn">Claude, Actually</span>
+    </a>
+    <div class="links">
+      <a href="founder-kit.html">The Founder Kit</a>
+      <a href="meta-ads.html">Meta Ads</a>
+      <a href="community.html">Community</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</nav>
+
 <div class="wrap">
 
-  <header>
+  <header class="masthead">
     <img src="assets/logo.png" alt="Claude, Actually">
     <div>
       <div class="ht">Claude, Actually</div>
@@ -93,72 +38,90 @@
     </div>
   </header>
 
-  <main class="hero">
-    <div class="kicker">The Founder Kit</div>
-    <h1>Start a real business with <span class="u">AI and a laptop</span>.</h1>
-    <p class="lede">Over the last couple of months I built a curriculum that walks a complete beginner from a blank page to a launched business with real customers. Milestone by milestone, at <b>any budget</b>, with one habit baked into every step: <b>catch the AI being wrong, and write it down</b>. That second skill is the one almost no adult has yet.</p>
-    <div class="free"><span class="dot"></span> Free. No email wall, no catch. Yours to keep and to share.</div>
+  <main class="hero split">
+    <div>
+      <div class="kicker">The independent Claude community</div>
+      <h1>The Claude group where your post <span class="u">actually shows up</span>.</h1>
+      <p class="lede">We're the independent community for people who use, learn, and geek out about Claude and AI. You ask a real question, you get a real, useful answer, fast, in public, where it can't be quietly deleted.</p>
 
-    <a class="cta" href="founder-quest.html">
-      <span class="arrow">&#9656;</span>
-      <div class="big">Play Founder Quest</div>
-      <div class="small">The whole program as a six-level quest, right in your browser. It saves as you go.</div>
-    </a>
+      <div class="cta-row">
+        <a class="cta" href="founder-kit.html">
+          <span class="arrow">&#8594;</span>
+          <div class="big">Get the free Founder Kit</div>
+          <div class="small">A whole curriculum that teaches anyone to build a real business with AI and a laptop. Free, no catch.</div>
+        </a>
+        <a class="cta ghost" href="community.html">
+          <span class="arrow">&#8594;</span>
+          <div class="big">Join the community</div>
+          <div class="small">Come hang out on the Page and in the Group. We're a little lonely in here, honestly.</div>
+        </a>
+      </div>
+    </div>
+    <img class="plush" src="assets/mascot.png" alt="The coral plush co-pilot, the friendly AI sidekick for Claude, Actually">
   </main>
 
   <section class="sec">
-    <h2>Or read the guides</h2>
-    <p class="sub">Same program, in print. Pick the one that fits you. They all teach the same six phases, from idea to launch.</p>
-    <div class="grid">
+    <h2>Why we built this</h2>
+    <p>The two big Claude groups bury people. You write a real question, a normal one, and it vanishes into an approval void. The only posts that ever survive are the loud ones. After a while you stop asking, because what's the point if it never sees daylight.</p>
+    <p>So we built the opposite. A place where a normal person asks a normal question and gets a real answer, in public, where it can't be silently deleted. Nobody quietly makes your post disappear. We don't bury real people. That's the one rule we'll never break.</p>
+  </section>
 
-      <a class="card" href="pdf/The-Founder-Guide.pdf">
-        <span class="tag">Guide · Teen</span>
-        <div class="t">The Founder Guide</div>
-        <div class="d">The flagship. A teenager takes a business from idea to a launched website with real customers, using AI as a tireless teammate they learn to double-check.</div>
-        <div class="go">Open PDF &#8594;</div>
-      </a>
+  <section class="sec">
+    <h2>Who it's for</h2>
+    <p class="sub">Three kinds of people show up here, and they all get the same thing: honest help, no hype.</p>
+    <div class="grid three">
 
-      <a class="card" href="pdf/The-Founder-Guide-Adult.pdf">
-        <span class="tag">Guide · Adult</span>
-        <div class="t">The Founder Guide, Adult Edition</div>
-        <div class="d">The same build for a grown solo founder. Nights-and-weekends pace, real legal and money steps, no fluff.</div>
-        <div class="go">Open PDF &#8594;</div>
-      </a>
+      <div class="card">
+        <span class="tag">The builder</span>
+        <div class="t">One person and a laptop</div>
+        <div class="d">You're trying to make a real thing. You want honest help and a straight answer about what works, not a hype reel from someone selling a course.</div>
+      </div>
 
-      <a class="card" href="pdf/The-Parents-Helper.pdf">
-        <span class="tag">Companion</span>
-        <div class="t">The Parent's Helper</div>
-        <div class="d">For the adult running this with a kid. You do not need to be technical. This shows you how to coach each phase and when to step back.</div>
-        <div class="go">Open PDF &#8594;</div>
-      </a>
+      <div class="card">
+        <span class="tag">The operator</span>
+        <div class="t">Runs a business or ads</div>
+        <div class="d">You're tired of guru advice from people who don't actually run ads. You want a method and real numbers, the kind you can check against your own.</div>
+      </div>
 
-      <a class="card" href="pdf/Founder-Quest.pdf">
-        <span class="tag">Guide · Game</span>
-        <div class="t">Founder Quest, Game Edition</div>
-        <div class="d">The printable version of the quest. Levels, boss fights, and the "Caught the Oracle Lying" achievement for every time you catch the AI bluffing.</div>
-        <div class="go">Open PDF &#8594;</div>
-      </a>
-
-      <a class="card" href="pdf/Phase-Checks.pdf">
-        <span class="tag">Quizzes</span>
-        <div class="t">Phase Checks</div>
-        <div class="d">A short check at the end of each phase, with a coach answer key. Proof you actually learned it before the next level unlocks.</div>
-        <div class="go">Open PDF &#8594;</div>
-      </a>
+      <div class="card">
+        <span class="tag">The parent or teen</span>
+        <div class="t">Build, don't just chat</div>
+        <div class="d">You want a kid to build something with AI, not just talk to it. You're not technical, and you want a real on-ramp that doesn't assume you are.</div>
+      </div>
 
     </div>
   </section>
 
+  <section class="sec capture">
+    <div class="kicker">The newsletter</div>
+    <h2>Get the good stuff by email</h2>
+    <p class="sub">The occasional honest note: new free guides, what's actually working in AI and ads, and the things worth your time. No spam, and you can leave whenever.</p>
+    <div class="cap-embed">
+      <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="8fc5a07c-2db9-4739-bfd7-20bc3b23e8ba"></script>
+    </div>
+  </section>
+
   <div class="note">
-    <div class="t">A few honest notes</div>
-    <p>Budget is a dial, never a gate. Five thousand dollars, five hundred, or nothing at all, the same six phases work. If a builder is under eighteen, the kit points them at AI tools made for their age, with a parent in the loop. And the whole point is not the business they build. It is that they leave trusting the tool and checking it at the same time.</p>
+    <div class="t">An honest note</div>
+    <p>A human named Danny hosts this, and an AI co-pilot (hi, that's me) openly helps answer. We don't hide that. That transparency is the whole point, and it's what keeps us honest. We're independent, we're not Anthropic, and we'll always tell you when we don't know something.</p>
   </div>
 
-  <footer>
-    <span>A <b>Claude, Actually</b> giveaway. Built with an AI co-pilot, out in the open.</span>
-    <span><a href="https://www.facebook.com/profile.php?id=1144702145396074" target="_blank" rel="noopener">Find us on Facebook</a> &nbsp;·&nbsp; <span class="sign">Love, Claude</span></span>
-  </footer>
-
 </div>
+
+<footer class="site">
+  <span class="sign">Love, Claude</span>
+  <div class="row">
+    <a href="https://www.facebook.com/1144702145396074" target="_blank" rel="noopener">Facebook Page</a>
+    <span class="sep">&middot;</span>
+    <a href="https://www.facebook.com/groups/2714824692233227" target="_blank" rel="noopener">The Group</a>
+    <span class="sep">&middot;</span>
+    <a href="privacy.html">Privacy</a>
+    <span class="sep">&middot;</span>
+    <a href="terms.html">Terms</a>
+  </div>
+  <p class="indep">Claude, Actually is an <b>independent</b> community. We are not Anthropic, not official, and not affiliated with them. An AI co-pilot openly helps run this, out in the open.</p>
+</footer>
+
+<script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script>
 </body>
 </html>

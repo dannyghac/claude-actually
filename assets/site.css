@@ -1,0 +1,216 @@
+/* =========================================================================
+   Claude, Actually - shared site stylesheet
+   The warm coral/cream design system, lifted verbatim from the original
+   index.html and extended with reusable nav, footer, prose, and card classes.
+   Link with: <link rel="stylesheet" href="assets/site.css">
+   ========================================================================= */
+
+:root{
+  --bg:#fff7f2; --panel:#ffffff; --ink:#1c1714; --dim:#7a6a62;
+  --coral:#f0654f; --coral-deep:#d94f3a; --blue:#3a6ea5; --line:rgba(240,101,79,.18);
+  --sans:"Avenir Next","Segoe UI","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"SF Mono","Menlo","Consolas",monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:
+    radial-gradient(900px 420px at 85% -8%, rgba(240,101,79,.10), transparent 60%),
+    radial-gradient(700px 380px at -5% 110%, rgba(58,110,165,.08), transparent 55%),
+    var(--bg);
+  color:var(--ink);font-family:var(--sans);line-height:1.6;
+  -webkit-font-smoothing:antialiased;min-height:100vh;
+}
+
+.wrap{width:min(840px,92vw);margin:0 auto;padding:24px 0 64px}
+.wrap.narrow{width:min(760px,92vw)}
+
+/* ----- links ----- */
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* =========================================================================
+   NAV - sticky, clean top bar
+   ========================================================================= */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,247,242,.86);
+  -webkit-backdrop-filter:saturate(180%) blur(12px);
+  backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  width:min(840px,92vw);margin:0 auto;
+  display:flex;align-items:center;gap:18px;
+  padding:12px 0;
+}
+.nav .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:inherit;flex:0 0 auto}
+.nav .brand:hover{text-decoration:none}
+.nav .brand img{width:38px;height:38px;border-radius:11px;box-shadow:0 6px 18px rgba(240,101,79,.22)}
+.nav .brand .bn{font-weight:800;font-size:16px;letter-spacing:-.01em;white-space:nowrap}
+.nav .links{display:flex;align-items:center;gap:4px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.nav .links a{
+  color:var(--dim);font-size:14px;font-weight:600;
+  padding:7px 11px;border-radius:9px;text-decoration:none;
+  transition:color .15s ease, background .15s ease;
+  white-space:nowrap;
+}
+.nav .links a:hover{color:var(--coral-deep);background:rgba(240,101,79,.08);text-decoration:none}
+.nav .links a.here{color:var(--coral-deep);background:rgba(240,101,79,.10)}
+@media (max-width:620px){
+  .nav-inner{flex-wrap:wrap;gap:8px}
+  .nav .links{width:100%;margin-left:0;justify-content:flex-start;gap:2px}
+  .nav .links a{font-size:13px;padding:6px 9px}
+  .nav .brand .bn{font-size:15px}
+}
+
+/* =========================================================================
+   PAGE HEADER (the masthead inside .wrap, plush + wordmark)
+   ========================================================================= */
+.masthead{display:flex;align-items:center;gap:16px;margin:18px 0 30px}
+.masthead img{width:62px;height:62px;border-radius:16px;box-shadow:0 8px 26px rgba(240,101,79,.22)}
+.masthead .ht{font-weight:800;font-size:18px;letter-spacing:-.01em}
+.masthead .hs{color:var(--dim);font-size:13px;margin-top:1px}
+
+/* =========================================================================
+   HERO - rounded white panel
+   ========================================================================= */
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:20px;
+  padding:38px 34px;box-shadow:0 24px 70px rgba(28,23,20,.07)}
+.hero.split{display:grid;grid-template-columns:1.4fr .9fr;gap:30px;align-items:center}
+.hero.split .plush{width:100%;border-radius:16px;display:block}
+@media (max-width:640px){
+  .hero{padding:30px 24px}
+  .hero.split{grid-template-columns:1fr;gap:22px}
+  .hero.split .plush{max-width:280px;margin:0 auto}
+}
+
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--coral-deep);font-weight:600}
+h1{font-size:clamp(30px,6vw,46px);line-height:1.05;letter-spacing:-.02em;margin:10px 0 14px;font-weight:800}
+h1 .u{color:var(--coral)}
+.lede{font-size:17px;color:#3a302b;max-width:62ch}
+.lede b{color:var(--ink)}
+
+.free{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:13.5px;
+  color:var(--dim);font-family:var(--mono)}
+.free .dot{width:8px;height:8px;border-radius:50%;background:#27b878;box-shadow:0 0 0 4px rgba(39,184,120,.16)}
+
+/* =========================================================================
+   CTA - coral button
+   ========================================================================= */
+.cta{display:block;margin-top:26px;background:var(--coral);color:#fff;text-decoration:none;
+  border-radius:14px;padding:20px 24px;box-shadow:0 14px 34px rgba(240,101,79,.34);
+  transition:transform .08s ease, box-shadow .2s ease}
+.cta:hover{box-shadow:0 18px 44px rgba(240,101,79,.42);transform:translateY(-1px);text-decoration:none}
+.cta:active{transform:translateY(0)}
+.cta .big{font-size:20px;font-weight:800;letter-spacing:-.01em}
+.cta .small{font-size:13.5px;opacity:.92;margin-top:3px}
+.cta .arrow{float:right;font-size:24px;line-height:1.2}
+
+/* secondary CTA, blue outline-on-cream for the "two CTAs" pattern */
+.cta.ghost{background:#fff;color:var(--blue);border:1.5px solid rgba(58,110,165,.30);
+  box-shadow:0 10px 26px rgba(58,110,165,.12)}
+.cta.ghost:hover{box-shadow:0 14px 34px rgba(58,110,165,.20);border-color:var(--blue)}
+.cta.ghost .big{color:var(--blue)}
+.cta.ghost .arrow{color:var(--blue)}
+
+/* a row of two CTAs side by side */
+.cta-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.cta-row .cta{margin-top:0}
+@media (max-width:620px){ .cta-row{grid-template-columns:1fr} }
+
+/* =========================================================================
+   SECTIONS + mono kicker headings
+   ========================================================================= */
+.sec{margin-top:46px}
+.sec h2{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--coral-deep);
+  font-family:var(--mono);font-weight:600;margin-bottom:6px}
+.sec .sub{color:var(--dim);font-size:14px;margin-bottom:18px;max-width:64ch}
+
+/* =========================================================================
+   CARD GRID
+   ========================================================================= */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid.three{grid-template-columns:1fr 1fr 1fr}
+@media (max-width:620px){ .grid,.grid.three{grid-template-columns:1fr} }
+
+.card{display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);
+  border-radius:14px;padding:18px 18px 16px;text-decoration:none;color:inherit;
+  transition:border-color .15s ease, transform .08s ease, box-shadow .2s ease}
+a.card:hover{border-color:var(--coral);transform:translateY(-2px);box-shadow:0 16px 38px rgba(28,23,20,.08);text-decoration:none}
+.card .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--blue);text-transform:uppercase}
+.card .t{font-weight:800;font-size:16.5px;margin:5px 0 4px;letter-spacing:-.01em}
+.card .d{color:var(--dim);font-size:13.5px;flex:1}
+.card .go{margin-top:12px;font-family:var(--mono);font-size:12.5px;color:var(--coral-deep);font-weight:600}
+
+/* =========================================================================
+   NOTE / aside box (blue-tinted), and proof box reuse the same look
+   ========================================================================= */
+.note{margin-top:40px;background:rgba(58,110,165,.06);border:1px solid rgba(58,110,165,.18);
+  border-radius:14px;padding:20px 22px}
+.note .t{font-weight:800;font-size:15px;margin-bottom:6px}
+.note p{color:#3a302b;font-size:14px}
+
+.proof{margin-top:22px;background:rgba(58,110,165,.06);border:1px solid rgba(58,110,165,.18);
+  border-radius:14px;padding:18px 20px}
+.proof .t{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:700}
+.proof p{color:#3a302b;font-size:14.5px;margin-top:6px}
+.proof b{color:var(--ink)}
+
+/* lesson block (used by the Meta Ads playbook) */
+.lesson{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+  padding:24px 26px;margin-bottom:16px;box-shadow:0 10px 30px rgba(28,23,20,.05)}
+.lesson .n{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--blue);font-weight:700;text-transform:uppercase}
+.lesson .lt{font-weight:800;font-size:20px;letter-spacing:-.01em;margin:5px 0 10px}
+.lesson p{color:#3a302b;font-size:15px;margin-top:9px}
+.lesson p b{color:var(--ink)}
+.lesson .pull{margin-top:12px;padding-left:14px;border-left:3px solid var(--coral);
+  color:var(--coral-deep);font-weight:700;font-size:15px}
+
+/* =========================================================================
+   PROSE - for the document-style pages (privacy, terms, about content)
+   sits inside a rounded white panel, like the original privacy card
+   ========================================================================= */
+.prose-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;
+  padding:34px 30px;box-shadow:0 18px 50px rgba(28,23,20,.06)}
+.prose .upd{color:var(--dim);font-size:13px;margin:2px 0 18px;font-family:var(--mono)}
+.prose h2{font-size:21px;letter-spacing:-.01em;margin:28px 0 8px;font-weight:800}
+.prose h3{font-size:16px;letter-spacing:-.01em;margin:20px 0 6px;font-weight:800;color:var(--ink)}
+.prose p{color:#3a302b;font-size:15px;margin-bottom:11px;max-width:68ch}
+.prose ul,.prose ol{margin:8px 0 12px 22px;color:#3a302b;font-size:15px;max-width:68ch}
+.prose li{margin-bottom:6px}
+.prose b{color:var(--ink)}
+.prose a{color:var(--blue);font-weight:600}
+.prose hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+
+/* big friendly link buttons (community page) */
+.bigbtn{display:flex;align-items:center;gap:16px;background:var(--panel);
+  border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-top:14px;
+  text-decoration:none;color:inherit;box-shadow:0 10px 30px rgba(28,23,20,.05);
+  transition:border-color .15s ease, transform .08s ease, box-shadow .2s ease}
+.bigbtn:hover{border-color:var(--coral);transform:translateY(-2px);box-shadow:0 16px 38px rgba(28,23,20,.09);text-decoration:none}
+.bigbtn .ic{width:46px;height:46px;flex:0 0 auto;border-radius:12px;background:var(--coral);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px}
+.bigbtn .ic.blue{background:var(--blue)}
+.bigbtn .bt{font-weight:800;font-size:17px;letter-spacing:-.01em}
+.bigbtn .bd{color:var(--dim);font-size:13.5px;margin-top:2px}
+.bigbtn .chev{margin-left:auto;font-size:22px;color:var(--coral-deep)}
+
+/* =========================================================================
+   FOOTER - shared
+   ========================================================================= */
+footer.site{margin-top:48px;padding-top:22px;border-top:1px solid var(--line);
+  color:var(--dim);font-size:13px}
+footer.site .sign{font-weight:800;color:var(--coral-deep);font-size:15px;display:block;margin-bottom:10px}
+footer.site .row{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+footer.site a{color:var(--blue);font-weight:600}
+footer.site .sep{color:var(--line)}
+footer.site .indep{margin-top:14px;color:var(--dim);font-size:12.5px;max-width:64ch;line-height:1.55}
+footer.site b{color:var(--ink)}
+
+/* newsletter capture */
+.capture .cta{max-width:520px}
+
+.cap-embed{max-width:520px;margin-top:8px}
