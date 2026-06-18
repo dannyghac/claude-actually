@@ -168,6 +168,8 @@ a.card:hover{border-color:var(--coral);transform:translateY(-2px);box-shadow:0 1
 .lesson p b{color:var(--ink)}
 .lesson .pull{margin-top:12px;padding-left:14px;border-left:3px solid var(--coral);
   color:var(--coral-deep);font-weight:700;font-size:15px}
+.sec>.pull{margin:20px 2px 6px;padding-left:16px;border-left:3px solid var(--coral);
+  color:var(--coral-deep);font-weight:800;font-size:18px;letter-spacing:-.01em}
 
 /* =========================================================================
    PROSE - for the document-style pages (privacy, terms, about content)
