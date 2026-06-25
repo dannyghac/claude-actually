@@ -54,12 +54,23 @@ src="https://www.facebook.com/tr?id=2633650787050149&ev=PageView&noscript=1"
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "NGO",
+      "@id": "https://claudeactually.ai/#foundation",
+      "name": "AI Actually Foundation",
+      "url": "https://claudeactually.ai/",
+      "foundingDate": "2026-06-25",
+      "description": "A California nonprofit public benefit corporation dedicated to free AI literacy for everyday people, families, and small businesses."
+    },
+    {
       "@type": "Organization",
       "@id": "https://claudeactually.ai/#org",
       "name": "Claude, Actually",
       "url": "https://claudeactually.ai/",
       "logo": "https://claudeactually.ai/assets/logo.png",
       "description": "An independent community where regular people build real, life-changing things with AI. Free guides, a build-along game, and a friendly AI co-pilot in the mix.",
+      "parentOrganization": {
+        "@id": "https://claudeactually.ai/#foundation"
+      },
       "sameAs": [
         "https://www.facebook.com/1144702145396074",
         "https://www.facebook.com/groups/2714824692233227",
