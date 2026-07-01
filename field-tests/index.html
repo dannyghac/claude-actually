@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Field Tests &middot; Claude, Actually</title>
+<meta name="description" content="Six locked field tests, one per phase of the Founder Kit. Decode the access code, unlock the mission, send back the evidence. Phases 1 and 2 are live.">
+<link rel="icon" type="image/png" href="../assets/favicon.png">
+<meta property="og:title" content="The Field Tests · Claude, Actually">
+<meta property="og:description" content="Every phase of the Founder Kit ends in a locked field test. The access codes are encoded. Go try to crack one.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://claudeactually.ai/field-tests/">
+<meta property="og:image" content="https://claudeactually.ai/assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Claude, Actually, build something actual">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Field Tests · Claude, Actually">
+<meta name="twitter:description" content="Every phase of the Founder Kit ends in a locked field test. The access codes are encoded. Go try to crack one.">
+<meta name="twitter:image" content="https://claudeactually.ai/assets/og-card.png">
+<meta property="fb:app_id" content="1699619567919904">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2633650787050149');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2633650787050149&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<style>
+  :root{
+    --bg:#05070d; --panel:#0b1020; --ink:#e8f0ff; --dim:#5b6b8c;
+    --green:#27f5a0; --amber:#ffb347; --red:#ff6b6b; --line:rgba(39,245,160,.18);
+    --mono:"SF Mono","Menlo","Monaco","Consolas",monospace;
+    --display:"Avenir Next","Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 70% -10%, rgba(39,245,160,.10), transparent 60%),
+      radial-gradient(900px 500px at 0% 120%, rgba(255,179,71,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);font-family:var(--mono);min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px;
+  }
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+    mix-blend-mode:overlay;opacity:.5}
+  .card{width:min(760px,100%);background:linear-gradient(180deg, rgba(11,16,32,.92), rgba(5,7,13,.92));
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02), 0 40px 120px rgba(0,0,0,.6)}
+  .bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);
+    font-size:12px;letter-spacing:.18em;color:var(--dim)}
+  .dot{width:11px;height:11px;border-radius:50%;background:#1e2740;border:1px solid rgba(255,255,255,.06)}
+  .dot.g{background:var(--green);box-shadow:0 0 12px var(--green)}
+  .bar .id{margin-left:auto;color:var(--green);white-space:nowrap;flex:0 0 auto}
+  .bar .file{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .body{padding:28px 26px 30px}
+  .stamp{font-family:var(--display);font-weight:800;font-size:clamp(26px,6vw,44px);line-height:1.04;
+    letter-spacing:-.02em;color:var(--green);text-shadow:0 0 30px rgba(39,245,160,.35);margin-bottom:8px}
+  .sub{color:var(--dim);font-size:13.5px;line-height:1.65;font-family:var(--display);margin-bottom:24px}
+  .sub b{color:var(--ink)}
+  .row{display:flex;align-items:center;gap:14px;padding:16px 14px;border:1px solid var(--line);
+    border-radius:10px;margin-bottom:10px;text-decoration:none;color:inherit;
+    background:rgba(39,245,160,.03);transition:border-color .15s}
+  a.row:hover{border-color:var(--green)}
+  .row .ph{flex:0 0 auto;font-size:11px;letter-spacing:.18em;color:var(--green);
+    border:1px solid var(--green);border-radius:6px;padding:5px 9px}
+  .row .nm{flex:1 1 auto;min-width:0}
+  .row .nm .t{font-family:var(--display);font-weight:700;font-size:15.5px;color:var(--ink)}
+  .row .nm .s{font-size:11px;letter-spacing:.14em;color:var(--dim);margin-top:3px}
+  .row .st{flex:0 0 auto;font-size:11px;letter-spacing:.14em;color:var(--amber)}
+  .row.off{background:rgba(255,255,255,.015);border-style:dashed;border-color:rgba(91,107,140,.3)}
+  .row.off .ph{color:var(--dim);border-color:rgba(91,107,140,.4)}
+  .row.off .nm .t{color:var(--dim)}
+  .row.off .st{color:var(--dim)}
+  .pulse{animation:blink 1.4s steps(2) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .parents{margin-top:22px;padding-top:16px;border-top:1px dashed rgba(91,107,140,.3);
+    font-family:var(--display);font-size:12.5px;line-height:1.6;color:var(--dim)}
+  .parents a{color:var(--green);text-decoration:none;border-bottom:1px dotted var(--green)}
+  .back{margin:18px 0 0;font-size:12px;letter-spacing:.14em}
+  .back a{color:var(--dim);text-decoration:none}
+  .back a:hover{color:var(--green)}
+  @media (max-width:520px){
+    .row{flex-wrap:wrap}
+    .row .st{flex-basis:100%;padding-left:2px}
+  }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="bar">
+      <span class="dot g"></span><span class="dot"></span><span class="dot"></span>
+      <span class="file">field_tests/</span><span class="id">6 CONTAINERS</span>
+    </div>
+    <div class="body">
+      <div class="stamp">THE FIELD TESTS</div>
+      <p class="sub">Every phase of the <b>Founder Kit</b> ends here: a locked file, an encoded access code, and a mission inside. Decoding the code is the first test &mdash; paste it into your AI and ask what it says, or crack it in Terminal. <b>Nobody gets waved through.</b></p>
+
+      <a class="row" href="phase-1.html">
+        <span class="ph">PHASE 1</span>
+        <span class="nm"><span class="t">Field Test // Prove the Setup</span><br><span class="s">ACCESS CODE: HEX</span></span>
+        <span class="st pulse">&#9612; ENCRYPTED</span>
+      </a>
+
+      <a class="row" href="phase-2.html">
+        <span class="ph">PHASE 2</span>
+        <span class="nm"><span class="t">Field Test // Prove the Idea</span><br><span class="s">ACCESS CODE: ROT13</span></span>
+        <span class="st pulse">&#9612; ENCRYPTED</span>
+      </a>
+
+      <div class="row off">
+        <span class="ph">PHASE 3</span>
+        <span class="nm"><span class="t">Field Test // Classified</span><br><span class="s">ACCESS CODE: ???</span></span>
+        <span class="st">LOCKED // COMING SOON</span>
+      </div>
+
+      <div class="row off">
+        <span class="ph">PHASE 4</span>
+        <span class="nm"><span class="t">Field Test // Classified</span><br><span class="s">ACCESS CODE: ???</span></span>
+        <span class="st">LOCKED // COMING SOON</span>
+      </div>
+
+      <div class="row off">
+        <span class="ph">PHASE 5</span>
+        <span class="nm"><span class="t">Field Test // Classified</span><br><span class="s">ACCESS CODE: ???</span></span>
+        <span class="st">LOCKED // COMING SOON</span>
+      </div>
+
+      <div class="row off">
+        <span class="ph">PHASE 6</span>
+        <span class="nm"><span class="t">Field Test // Classified</span><br><span class="s">ACCESS CODE: ???</span></span>
+        <span class="st">LOCKED // COMING SOON</span>
+      </div>
+
+      <p class="parents"><b>Parent?</b> These are playable demos. The full program guide is <a href="../founder-kit.html">here</a>. Stuck on a code? Crack it the same way your kid will &mdash; paste it into Claude or ChatGPT and ask what it is.</p>
+    </div>
+  </main>
+  <p class="back"><a href="../founder-kit.html">&#8592; BACK TO THE FOUNDER KIT</a></p>
+</body>
+</html>

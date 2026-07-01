@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>PHASE 1 // FIELD TEST &middot; Claude, Actually</title>
+<style>
+  :root{
+    --bg:#05070d;--panel:#0b1020;--ink:#e8f0ff;--dim:#5b6b8c;
+    --green:#27f5a0;--amber:#ffb347;--line:rgba(39,245,160,.18);
+    --mono:"SF Mono","Menlo","Monaco","Consolas",monospace;
+    --display:"Avenir Next","Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 70% -10%, rgba(39,245,160,.10), transparent 60%),
+      radial-gradient(900px 500px at 0% 120%, rgba(255,179,71,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);font-family:var(--mono);min-height:100vh;
+    display:flex;align-items:flex-start;justify-content:center;padding:28px;
+  }
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+    mix-blend-mode:overlay;opacity:.5}
+  .card{width:min(780px,100%);background:linear-gradient(180deg, rgba(11,16,32,.92), rgba(5,7,13,.92));
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02), 0 40px 120px rgba(0,0,0,.6)}
+  .bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);
+    font-size:12px;letter-spacing:.18em;color:var(--dim)}
+  .dot{width:11px;height:11px;border-radius:50%;background:#1e2740;border:1px solid rgba(255,255,255,.06)}
+  .dot.a{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+  .bar .id{margin-left:auto;color:var(--amber)}
+  .body{padding:28px 32px 32px}
+  .stamp{font-family:var(--display);font-weight:800;font-size:clamp(26px,5.5vw,44px);
+    line-height:1.04;letter-spacing:-.02em;color:var(--amber);
+    text-shadow:0 0 26px rgba(255,179,71,.3);margin-bottom:6px}
+  .sub{color:var(--dim);font-size:13.5px;line-height:1.6;margin-bottom:22px}
+  .sub b{color:var(--ink)}
+  .task{border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-top:12px;
+    background:rgba(39,245,160,.03)}
+  .task h3{font-family:var(--mono);font-size:12px;letter-spacing:.16em;color:var(--green);
+    text-transform:uppercase;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+  .task h3 .n{flex:0 0 24px;height:24px;border-radius:6px;border:1px solid var(--green);
+    display:flex;align-items:center;justify-content:center;color:var(--green)}
+  .task p{font-family:var(--display);font-size:14.5px;line-height:1.55;color:var(--ink)}
+  .task code{font-family:var(--mono);font-size:12.5px;background:rgba(255,255,255,.06);
+    padding:1px 7px;border-radius:5px;color:var(--amber)}
+  .submit{margin-top:22px;border:1px dashed var(--amber);border-radius:10px;padding:16px 18px;
+    background:rgba(255,179,71,.05)}
+  .submit h3{color:var(--amber);font-size:12px;letter-spacing:.16em;margin-bottom:8px;font-family:var(--mono)}
+  .submit p{font-family:var(--display);font-size:14.5px;line-height:1.6}
+  .submit b{color:var(--amber)}
+  .foot{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:11.5px;letter-spacing:.08em;color:var(--dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .pulse{color:var(--amber);animation:blink 1.4s steps(2) infinite}
+  @keyframes blink{50%{opacity:.25}}
+</style>
+<style>
+  /* ----- gate (lock screen) ----- */
+  body{flex-direction:column;align-items:center;gap:0}
+  .g-card{width:min(680px,100%);background:linear-gradient(180deg, rgba(11,16,32,.92), rgba(5,7,13,.92));
+    border:1px solid rgba(255,107,107,.25);border-radius:14px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02), 0 40px 120px rgba(0,0,0,.6)}
+  .g-bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid rgba(255,107,107,.25);
+    font-size:12px;letter-spacing:.18em;color:var(--dim)}
+  .g-dot{width:11px;height:11px;border-radius:50%;background:#1e2740;border:1px solid rgba(255,255,255,.06)}
+  .g-dot.r{background:#ff6b6b;box-shadow:0 0 12px #ff6b6b}
+  .g-bar .g-id{margin-left:auto;color:#ff6b6b;white-space:nowrap;flex:0 0 auto}
+  .g-bar .g-file{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .g-body{padding:28px 26px 30px}
+  .g-stamp{font-family:var(--display);font-weight:800;font-size:clamp(24px,6vw,40px);line-height:1.05;
+    letter-spacing:-.02em;color:#ff6b6b;text-shadow:0 0 26px rgba(255,107,107,.3);margin-bottom:8px}
+  .g-sub{color:var(--dim);font-size:13.5px;line-height:1.65;font-family:var(--display);margin-bottom:20px}
+  .g-sub b{color:var(--ink)}
+  .g-codebox{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:rgba(39,245,160,.04);margin-bottom:8px}
+  .g-codebox h3{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--green);margin-bottom:10px}
+  .g-code{font-family:var(--mono);font-size:clamp(14px,3.4vw,19px);letter-spacing:.06em;color:var(--amber);
+    word-break:break-all;user-select:all;-webkit-user-select:all;line-height:1.5}
+  .g-copy{margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--green);
+    background:none;border:1px solid var(--green);border-radius:6px;padding:6px 12px;cursor:pointer}
+  .g-copy:active{background:rgba(39,245,160,.15)}
+  .g-hint{font-family:var(--display);font-size:13px;color:var(--dim);line-height:1.6;margin:14px 0 20px}
+  .g-hint b{color:var(--ink)}
+  .g-form{display:flex;gap:10px;flex-wrap:wrap}
+  .g-input{flex:1 1 200px;font-family:var(--mono);font-size:16px;color:var(--ink);background:rgba(255,255,255,.05);
+    border:1px solid var(--line);border-radius:8px;padding:12px 14px;outline:none;letter-spacing:.04em}
+  .g-input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(39,245,160,.15)}
+  .g-btn{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:#05070d;background:var(--green);
+    border:0;border-radius:8px;padding:12px 22px;cursor:pointer;font-weight:700}
+  .g-btn:active{transform:translateY(1px)}
+  .g-msg{margin-top:14px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;min-height:18px}
+  .g-msg.deny{color:#ff6b6b;animation:g-shake .3s}
+  .g-msg.grant{color:var(--green)}
+  @keyframes g-shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .g-parents{margin-top:22px;padding-top:16px;border-top:1px dashed rgba(91,107,140,.3);
+    font-family:var(--display);font-size:12.5px;line-height:1.6;color:var(--dim)}
+  .g-parents a{color:var(--green);text-decoration:none;border-bottom:1px dotted var(--green)}
+  .g-back{margin:18px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.14em}
+  .g-back a{color:var(--dim);text-decoration:none}
+  .g-back a:hover{color:var(--green)}
+  #test{width:100%;display:none;justify-content:center}
+  #test.on{display:flex}
+  .g-relock{margin:16px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-align:center;width:100%}
+  .g-relock a{color:var(--dim);text-decoration:none;cursor:pointer}
+</style>
+</head>
+<body>
+  <div id="gate">
+    <main class="g-card">
+      <div class="g-bar">
+        <span class="g-dot r"></span><span class="g-dot"></span><span class="g-dot"></span>
+        <span class="g-file">encrypted_container</span><span class="g-id">&#9612; LOCKED</span>
+      </div>
+      <div class="g-body">
+        <div class="g-stamp">PHASE 1 // FIELD TEST</div>
+        <p class="g-sub">This file is <b>locked</b>. The string below is not the password &mdash; it's the password, <b>encoded</b>. Decode it, type what it says, and you're in. That's the whole test before the test.</p>
+        <div class="g-codebox">
+          <h3>&#9670; ACCESS CODE &middot; HEX</h3>
+          <div class="g-code" id="code">45766964656e63654669727374</div>
+          <button class="g-copy" id="copyBtn" type="button">COPY CODE</button>
+        </div>
+        <p class="g-hint"><b>How to crack it:</b> Paste the code into your AI and ask what it says. Or, if you're feeling like a hacker, crack it yourself in Terminal.</p>
+        <form class="g-form" id="gform">
+          <input class="g-input" id="pw" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="decoded password">
+          <button class="g-btn" type="submit">UNLOCK &#9656;</button>
+        </form>
+        <div class="g-msg" id="msg"></div>
+        <p class="g-parents"><b>Parent?</b> This is a playable demo. The full program guide is <a href="../founder-kit.html">here</a>. Stuck on the code? Crack it the same way your kid will &mdash; paste it into Claude or ChatGPT and ask what it is.</p>
+      </div>
+    </main>
+    <p class="g-back"><a href="index.html">&#8592; ALL FIELD TESTS</a></p>
+  </div>
+  <div id="test"></div>
+  <p class="g-relock" id="relock" style="display:none"><a id="relockBtn">&#9612; LOCK IT AGAIN</a></p>
+
+<script>
+(function(){
+  var HASH="7f2d8bc8b35f610937af3ff3bfda487b37f1f429efedeaee72a3b5139d6a5bb5", KEY="ca_ft_phase1", PAYLOAD="ICA8bWFpbiBjbGFzcz0iY2FyZCI+CiAgICA8ZGl2IGNsYXNzPSJiYXIiPgogICAgICA8c3BhbiBjbGFzcz0iZG90IGEiPjwvc3Bhbj48c3BhbiBjbGFzcz0iZG90Ij48L3NwYW4+PHNwYW4gY2xhc3M9ImRvdCI+PC9zcGFuPgogICAgICA8c3Bhbj5maWVsZF90ZXN0LmV4ZTwvc3Bhbj48c3BhbiBjbGFzcz0iaWQiPkNMRUFSQU5DRSBMRVZFTCAyPC9zcGFuPgogICAgPC9kaXY+CiAgICA8ZGl2IGNsYXNzPSJib2R5Ij4KICAgICAgPGRpdiBjbGFzcz0ic3RhbXAiPlBIQVNFIDEg4oCUIEZJRUxEIFRFU1Q8L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0ic3ViIj5Zb3Ugc2F5IHlvdSBjbGVhcmVkIFBoYXNlIDEuIEdvb2QuIE5vdyA8Yj5wcm92ZSBpdDwvYj4uIEZvdW5kZXJzIGRvbid0IGdldCB0YWtlbiBhdCB0aGVpciB3b3JkLCB0aGV5IGdldCBjaGVja2VkLiBTZW5kIHlvdXIgY29hY2ggdGhlIGV2aWRlbmNlIGJlbG93LiBNaXNzaW5nIG9yIHNsb3BweSBldmlkZW5jZSBtZWFucyB0aGUgbWlsZXN0b25lIGlzbid0IHZlcmlmaWVkIHlldCwgYW5kIHRoZSAkMjAwIHdhaXRzLjwvZGl2PgoKICAgICAgPGRpdiBjbGFzcz0idGFzayI+CiAgICAgICAgPGgzPjxzcGFuIGNsYXNzPSJuIj4xPC9zcGFuPiBUaGUgRm9sZGVyczwvaDM+CiAgICAgICAgPHA+U2NyZWVuc2hvdCB5b3VyIEZpbmRlciB3aW5kb3cgc2hvd2luZyA8Y29kZT5+L0RvY3VtZW50cy9CdXNpbmVzcy88L2NvZGU+IHdpdGggYWxsIHNpeCBmb2xkZXJzLCAwMS1SZXNlYXJjaCB0aHJvdWdoIDA2LUZpbmFuY2VzLiBUYWtlIGl0IHdpdGggdGhlIGtleWJvYXJkIHNob3J0Y3V0ICg8Y29kZT5DbWQrU2hpZnQrNDwvY29kZT4pLCBub3QgYSBwaG9uZSBwaG90by4gV2UgY2FuIHRlbGwuPC9wPgogICAgICA8L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0idGFzayI+CiAgICAgICAgPGgzPjxzcGFuIGNsYXNzPSJuIj4yPC9zcGFuPiBUaGUgTG9hZG91dDwvaDM+CiAgICAgICAgPHA+T25lIHNjcmVlbnNob3Qgb2YgeW91ciBpbnN0YWxsZWQgYXBwcyAob3BlbiBMYXVuY2hwYWQgb3IgeW91ciBBcHBsaWNhdGlvbnMgZm9sZGVyKTogU2FmYXJpLCBDaHJvbWUsIHlvdXIgbm90ZXMgYXBwLCBDbGF1ZGUsIENoYXRHUFQsIGFuZCB5b3VyIHBhc3N3b3JkIG1hbmFnZXIuIFdlIGp1c3QgbmVlZCB0byBzZWUgdGhleSdyZSBpbnN0YWxsZWQsIG5vdCB3aGF0J3MgaW5zaWRlIHRoZW0uIDxiPlBsdXMgYSBHb29nbGUgY2hlY2s6PC9iPiBhIHNjcmVlbnNob3Qgb2YgdGhlIEdvb2dsZSBhcHAgbGF1bmNoZXIgKHRoZSA5LWRvdCBncmlkLCB0b3AtcmlnaHQgb2YgYW55IEdvb2dsZSBwYWdlIHdoZW4geW91J3JlIHNpZ25lZCBpbikgb3IgRHJpdmUgb3BlbiBpbiB5b3VyIGJyb3dzZXIuIEdvb2dsZSBydW5zIGluIHRoZSBicm93c2VyLCB0aGVyZSdzIG5vIGFwcCB0byBpbnN0YWxsLjwvcD4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9InRhc2siPgogICAgICAgIDxoMz48c3BhbiBjbGFzcz0ibiI+Mzwvc3Bhbj4gVGhlIFNob3J0Y3V0IFJlZWw8L2gzPgogICAgICAgIDxwPkEgMzAtNjAgc2Vjb25kIDxiPnNjcmVlbiByZWNvcmRpbmc8L2I+IChzdGFydCBpdCB3aXRoIDxjb2RlPkNtZCtTaGlmdCs1PC9jb2RlPikuIExpdmUsIHdpdGhvdXQgc3RvcHBpbmcsIGRvIGFsbCBvZiB0aGVzZTogb3BlbiBTcG90bGlnaHQgKDxjb2RlPkNtZCtTcGFjZTwvY29kZT4pIGFuZCBsYXVuY2ggYW4gYXBwLCBzd2l0Y2ggYXBwcyAoPGNvZGU+Q21kK1RhYjwvY29kZT4pLCBvcGVuIE1pc3Npb24gQ29udHJvbCwgc25hcCBhIHdpbmRvdyB0byBvbmUgc2lkZSwgYW5kIGdyYWIgYSBzY3JlZW5zaG90LiBTaG93IHVzIHlvdXIgaGFuZHMga25vdyB0aGUgbW92ZXMuPC9wPgogICAgICA8L2Rpdj4KICAgICAgPGRpdiBjbGFzcz0idGFzayI+CiAgICAgICAgPGgzPjxzcGFuIGNsYXNzPSJuIj40PC9zcGFuPiBUaGUgSm91cm5hbDwvaDM+CiAgICAgICAgPHA+RW1haWwgYSBjb3B5IG9mIHlvdXIgRm91bmRlcidzIEpvdXJuYWwgKGV4cG9ydCBpdCBvciBzaGFyZSB0aGUgZG9jKS4gSXQgaGFzIHRvIGluY2x1ZGUgeW91ciBmaXJzdCA8Yj4iY2F1Z2h0IHRoZSBBSSBiZWluZyB3cm9uZyI8L2I+IGVudHJ5LiBObyBlbnRyeSwgbm8gcGFzcy48L3A+CiAgICAgIDwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJ0YXNrIj4KICAgICAgICA8aDM+PHNwYW4gY2xhc3M9Im4iPjU8L3NwYW4+IFRoZSBQcm9tcHQgTGFiPC9oMz4KICAgICAgICA8cD5JbiB0aGUgZW1haWwsIHBhc3RlOiB0aGUgc2FtZSBxdWVzdGlvbiBhc2tlZCAoYSkgbGF6aWx5IGFuZCAoYikgbGlrZSBhIHBybywgdGhlIEFJJ3MgdHdvIGFuc3dlcnMgKGtlZXAgdGhlbSBzaG9ydCksIGFuZCB0aGUgQUkncyBjcml0aXF1ZSBvZiBpdHMgb3duIGxhenkgYW5zd2VyLiBUaGVuIG9uZSBzZW50ZW5jZSBvbiB3aGF0IHlvdSBsZWFybmVkIGFib3V0IHByb21wdGluZy48L3A+CiAgICAgIDwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJ0YXNrIj4KICAgICAgICA8aDM+PHNwYW4gY2xhc3M9Im4iPjY8L3NwYW4+IFRoZSBFeHBsb3JlcidzIEZpbmQ8L2gzPgogICAgICAgIDxwPk5hbWUgb25lIGtleWJvYXJkIHNob3J0Y3V0IG9yIE1hYyB0cmljayB5b3UgZm91bmQgPGI+b24geW91ciBvd248L2I+IHRoYXQgd2Fzbid0IG9uIHRoZSBsaXN0LCBhbmQgd2hhdCBpdCBkb2VzLiBUaGlzIGlzIGhvdyB3ZSBrbm93IHlvdSBhY3R1YWxseSBleHBsb3JlZC48L3A+CiAgICAgIDwvZGl2PgoKICAgICAgPGRpdiBjbGFzcz0ic3VibWl0Ij4KICAgICAgICA8aDM+4peGIEhPVyBUTyBTVUJNSVQ8L2gzPgogICAgICAgIDxwPlBhY2thZ2UgaXQgdXAgYW5kIHNlbmQgaXQgdG8geW91ciBjb2FjaCAodGhhdCdzIHlvdXIgcGFyZW50KS4gU3ViamVjdCBsaW5lOiA8Yj55b3VyIGNvZGVuYW1lICsgT1BFUkFUSVZFPC9iPi4gQXR0YWNoIHRoZSB0d28gc2NyZWVuc2hvdHMsIHRoZSByZWNvcmRpbmcsIGFuZCB5b3VyIGpvdXJuYWwuIFBhc3RlIHRoZSBQcm9tcHQgTGFiIGFuZCB0aGUgRXhwbG9yZXIncyBGaW5kIGluIHRoZSBib2R5LjwvcD4KICAgICAgICA8cCBzdHlsZT0ibWFyZ2luLXRvcDoxMHB4O2NvbG9yOnZhcigtLWRpbSkiPlRoYXQgc3ViamVjdCBsaW5lIG1hdHRlcnMuIEl0J3MgaG93IHdlIGtub3cgeW91IHJlYWQgdGhpcyB3aG9sZSBmaWxlIGluc3RlYWQgb2Ygc2tpbW1pbmcuIEdldCBpdCB3cm9uZyBhbmQgd2UnbGwga25vdy48L3A+CiAgICAgIDwvZGl2PgoKICAgICAgPGRpdiBjbGFzcz0iZm9vdCI+CiAgICAgICAgPHNwYW4+REVTSUdORUQgSU4gQ0FMSUZPUk5JQSDCtyBEQU5OWSBGT1gtQUxWRVJTT04gw5cgQ0xBVURFPC9zcGFuPgogICAgICAgIDxzcGFuIGNsYXNzPSJwdWxzZSI+4paMIEFXQUlUSU5HIEVWSURFTkNFPC9zcGFuPgogICAgICA8L2Rpdj4KICAgIDwvZGl2PgogIDwvbWFpbj4=";
+  var gate=document.getElementById("gate"), test=document.getElementById("test"),
+      msg=document.getElementById("msg"), relock=document.getElementById("relock");
+
+  function decode(b64){
+    var raw=atob(b64), bytes=new Uint8Array(raw.length);
+    for(var i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+  function sha256(s){
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then(function(buf){
+      return Array.prototype.map.call(new Uint8Array(buf), function(b){
+        return b.toString(16).padStart(2,"0");
+      }).join("");
+    });
+  }
+  function open_(){
+    test.innerHTML=decode(PAYLOAD);
+    gate.style.display="none";
+    test.className="on";
+    relock.style.display="block";
+    window.scrollTo(0,0);
+  }
+  function lock(){
+    try{localStorage.removeItem(KEY);}catch(e){}
+    test.innerHTML=""; test.className="";
+    relock.style.display="none"; gate.style.display="";
+    msg.className="g-msg"; msg.textContent="";
+    document.getElementById("pw").value="";
+  }
+
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    var code=document.getElementById("code").textContent, btn=this;
+    function done(){btn.textContent="COPIED"; setTimeout(function(){btn.textContent="COPY CODE";},1400);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(done,done);}
+    else{var r=document.createRange();r.selectNodeContents(document.getElementById("code"));
+      var s=getSelection();s.removeAllRanges();s.addRange(r);done();}
+  });
+
+  document.getElementById("gform").addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=document.getElementById("pw").value.trim().toLowerCase();
+    if(!v) return;
+    if(!(window.crypto&&crypto.subtle)){msg.className="g-msg deny";msg.textContent="THIS BROWSER CAN'T RUN THE LOCK. TRY ANOTHER.";return;}
+    sha256(v).then(function(h){
+      if(h===HASH){
+        msg.className="g-msg grant"; msg.textContent="&#9670; ACCESS GRANTED".replace("&#9670;","\u25c6");
+        try{localStorage.setItem(KEY,"1");}catch(e){}
+        setTimeout(open_,650);
+      }else{
+        msg.className="g-msg deny"; msg.textContent="ACCESS DENIED // TRY AGAIN";
+      }
+    });
+  });
+
+  relock.querySelector("a").addEventListener("click",lock);
+
+  try{if(localStorage.getItem(KEY)==="1") open_();}catch(e){}
+})();
+</script>
+</body>
+</html>
