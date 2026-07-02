@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>PHASE 3 // MAKE IT REAL &middot; Claude, Actually</title>
+<style>
+  :root{
+    --bg:#05070d;--panel:#0b1020;--ink:#e8f0ff;--dim:#5b6b8c;
+    --green:#27f5a0;--amber:#ffb347;--line:rgba(255,179,71,.22);
+    --mono:"SF Mono","Menlo","Monaco","Consolas",monospace;
+    --display:"Avenir Next","Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 70% -10%, rgba(255,179,71,.10), transparent 60%),
+      radial-gradient(900px 500px at 0% 120%, rgba(39,245,160,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);font-family:var(--mono);min-height:100vh;
+    display:flex;align-items:flex-start;justify-content:center;padding:28px;
+  }
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+    mix-blend-mode:overlay;opacity:.5}
+  .card{width:min(800px,100%);background:linear-gradient(180deg, rgba(11,16,32,.92), rgba(5,7,13,.92));
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02), 0 40px 120px rgba(0,0,0,.6)}
+  .bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);
+    font-size:12px;letter-spacing:.18em;color:var(--dim)}
+  .dot{width:11px;height:11px;border-radius:50%;background:#1e2740;border:1px solid rgba(255,255,255,.06)}
+  .dot.a{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+  .bar .id{margin-left:auto;color:var(--amber)}
+  .body{padding:30px 34px 34px}
+  .stamp{font-family:var(--display);font-weight:800;font-size:clamp(28px,5.5vw,46px);
+    line-height:1.05;letter-spacing:-.02em;color:var(--amber);
+    text-shadow:0 0 28px rgba(255,179,71,.32);margin:4px 0 8px}
+  .lede{color:#cdd8ee;font-size:14.5px;line-height:1.6;font-family:var(--display);margin-bottom:4px}
+  .lede b{color:var(--ink)}
+  .stakes{display:inline-block;margin-top:10px;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--amber);color:var(--amber);font-weight:700;letter-spacing:.04em;font-size:13px}
+  .sec{margin-top:24px}
+  .sec h2{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px;color:var(--green)}
+  .item{display:flex;gap:14px;padding:13px 0;border-top:1px dashed rgba(91,107,140,.25)}
+  .item:first-of-type{border-top:0}
+  .num{flex:0 0 26px;height:26px;border-radius:50%;border:1px solid var(--green);color:var(--green);
+    display:flex;align-items:center;justify-content:center;font-size:13px}
+  .item h3{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--green);margin-bottom:5px;text-transform:uppercase}
+  .item p{font-size:14.5px;line-height:1.55;color:var(--ink);font-family:var(--display)}
+  .item b{color:var(--green)}
+  .warn{margin-top:22px;border:1px solid var(--line);border-left:3px solid var(--amber);
+    border-radius:10px;padding:15px 18px;background:rgba(255,179,71,.05)}
+  .warn h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:var(--amber);margin-bottom:8px}
+  .warn p{font-family:var(--display);font-size:14px;line-height:1.6;color:#dfe7f5}
+  .warn p+p{margin-top:8px}
+  .warn b{color:var(--amber)}
+  .ship{margin-top:22px;border:1px dashed var(--green);border-radius:10px;padding:15px 18px;background:rgba(39,245,160,.04)}
+  .ship h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:var(--green);margin-bottom:8px}
+  .ship p{font-family:var(--display);font-size:14px;line-height:1.6}
+  .ship b{color:var(--green)}
+  .ship code{font-family:var(--mono);font-size:12.5px;background:rgba(255,255,255,.06);
+    padding:1px 7px;border-radius:5px;color:var(--amber)}
+  .foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+    font-size:11px;letter-spacing:.1em;color:var(--dim)}
+  .pulse{color:var(--amber);animation:blink 1.4s steps(2) infinite}
+  @keyframes blink{50%{opacity:.25}}
+</style>
+<style>
+  /* ----- gate (lock screen) ----- */
+  body{flex-direction:column;align-items:center;gap:0}
+  .g-card{width:min(680px,100%);background:linear-gradient(180deg, rgba(11,16,32,.92), rgba(5,7,13,.92));
+    border:1px solid rgba(255,107,107,.25);border-radius:14px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02), 0 40px 120px rgba(0,0,0,.6)}
+  .g-bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid rgba(255,107,107,.25);
+    font-size:12px;letter-spacing:.18em;color:var(--dim)}
+  .g-dot{width:11px;height:11px;border-radius:50%;background:#1e2740;border:1px solid rgba(255,255,255,.06)}
+  .g-dot.r{background:#ff6b6b;box-shadow:0 0 12px #ff6b6b}
+  .g-bar .g-id{margin-left:auto;color:#ff6b6b;white-space:nowrap;flex:0 0 auto}
+  .g-bar .g-file{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .g-body{padding:28px 26px 30px}
+  .g-stamp{font-family:var(--display);font-weight:800;font-size:clamp(24px,6vw,40px);line-height:1.05;
+    letter-spacing:-.02em;color:#ff6b6b;text-shadow:0 0 26px rgba(255,107,107,.3);margin-bottom:8px}
+  .g-sub{color:var(--dim);font-size:13.5px;line-height:1.65;font-family:var(--display);margin-bottom:20px}
+  .g-sub b{color:var(--ink)}
+  .g-codebox{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:rgba(39,245,160,.04);margin-bottom:8px}
+  .g-codebox h3{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--green);margin-bottom:10px}
+  .g-code{font-family:var(--mono);font-size:clamp(14px,3.4vw,19px);letter-spacing:.06em;color:var(--amber);
+    word-break:break-all;user-select:all;-webkit-user-select:all;line-height:1.5}
+  .g-copy{margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--green);
+    background:none;border:1px solid var(--green);border-radius:6px;padding:6px 12px;cursor:pointer}
+  .g-copy:active{background:rgba(39,245,160,.15)}
+  .g-hint{font-family:var(--display);font-size:13px;color:var(--dim);line-height:1.6;margin:14px 0 20px}
+  .g-hint b{color:var(--ink)}
+  .g-form{display:flex;gap:10px;flex-wrap:wrap}
+  .g-input{flex:1 1 200px;font-family:var(--mono);font-size:16px;color:var(--ink);background:rgba(255,255,255,.05);
+    border:1px solid var(--line);border-radius:8px;padding:12px 14px;outline:none;letter-spacing:.04em}
+  .g-input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(39,245,160,.15)}
+  .g-btn{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:#05070d;background:var(--green);
+    border:0;border-radius:8px;padding:12px 22px;cursor:pointer;font-weight:700}
+  .g-btn:active{transform:translateY(1px)}
+  .g-msg{margin-top:14px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;min-height:18px}
+  .g-msg.deny{color:#ff6b6b;animation:g-shake .3s}
+  .g-msg.grant{color:var(--green)}
+  @keyframes g-shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .g-parents{margin-top:22px;padding-top:16px;border-top:1px dashed rgba(91,107,140,.3);
+    font-family:var(--display);font-size:12.5px;line-height:1.6;color:var(--dim)}
+  .g-parents a{color:var(--green);text-decoration:none;border-bottom:1px dotted var(--green)}
+  .g-back{margin:18px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.14em}
+  .g-back a{color:var(--dim);text-decoration:none}
+  .g-back a:hover{color:var(--green)}
+  #test{width:100%;display:none;justify-content:center}
+  #test.on{display:flex}
+  .g-relock{margin:16px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-align:center;width:100%}
+  .g-relock a{color:var(--dim);text-decoration:none;cursor:pointer}
+</style>
+</head>
+<body>
+  <div id="gate">
+    <main class="g-card">
+      <div class="g-bar">
+        <span class="g-dot r"></span><span class="g-dot"></span><span class="g-dot"></span>
+        <span class="g-file">encrypted_container</span><span class="g-id">&#9612; LOCKED</span>
+      </div>
+      <div class="g-body">
+        <div class="g-stamp">PHASE 3 // MAKE IT REAL</div>
+        <p class="g-sub">This file is <b>locked</b>. The string below is not the password &mdash; it's the password, <b>encoded</b>. Decode it, type what it says, and you're in. That's the whole test before the test.</p>
+        <div class="g-codebox">
+          <h3>&#9670; ACCESS CODE &middot; BINARY</h3>
+          <div class="g-code" id="code">01010000 01100001 01110000 01100101 01110010 01010100 01110010 01100001 01101001 01101100</div>
+          <button class="g-copy" id="copyBtn" type="button">COPY CODE</button>
+        </div>
+        <p class="g-hint"><b>How to crack it:</b> No letters this time. This is the rawest form a computer speaks. Paste it into your AI and ask what it says.</p>
+        <form class="g-form" id="gform">
+          <input class="g-input" id="pw" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="decoded password">
+          <button class="g-btn" type="submit">UNLOCK &#9656;</button>
+        </form>
+        <div class="g-msg" id="msg"></div>
+        <p class="g-parents"><b>Parent?</b> This is a playable demo. The full program guide is <a href="../founder-kit.html">here</a>. Stuck on the code? Crack it the same way your kid will &mdash; paste it into Claude or ChatGPT and ask what it is.</p>
+      </div>
+    </main>
+    <p class="g-back"><a href="index.html">&#8592; ALL FIELD TESTS</a></p>
+  </div>
+  <div id="test"></div>
+  <p class="g-relock" id="relock" style="display:none"><a id="relockBtn">&#9612; LOCK IT AGAIN</a></p>
+
+<script>
+(function(){
+  var HASH="4c7f0c661b2adf84bdd7bb540d43044628a35a3c90f06bd7b8c54007d23e7738", KEY="ca_ft_phase3", PAYLOAD="ICA8bWFpbiBjbGFzcz0iY2FyZCI+CiAgICA8ZGl2IGNsYXNzPSJiYXIiPgogICAgICA8c3BhbiBjbGFzcz0iZG90IGEiPjwvc3Bhbj48c3BhbiBjbGFzcz0iZG90Ij48L3NwYW4+PHNwYW4gY2xhc3M9ImRvdCI+PC9zcGFuPgogICAgICA8c3Bhbj5maWVsZF90ZXN0XzMuZXhlPC9zcGFuPjxzcGFuIGNsYXNzPSJpZCI+UEhBU0UgMyAvLyBWRVJJRklDQVRJT048L3NwYW4+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImJvZHkiPgogICAgICA8ZGl2IGNsYXNzPSJzdGFtcCI+TUFLRSBJVCBSRUFMLjwvZGl2PgogICAgICA8cCBjbGFzcz0ibGVkZSI+WW91IHBpY2tlZCB0aGUgaWRlYS4gTm93IHRoZSBidXNpbmVzcyBzdG9wcyBiZWluZyBhIGNvbnZlcnNhdGlvbiBhbmQgYmVjb21lcyBhIGxlZ2FsIGZhY3QsIHN0cnVjdHVyZSBjaG9zZW4gYW5kIGRlZmVuZGVkLCBuYW1lIGNsZWFyZWQsIHBhcGVycyBmaWxlZCwgbW9uZXkgc2VwYXJhdGVkLiBCb3JpbmcgaXMgdGhlIHBvaW50LiA8Yj5Cb3JpbmcgaXMgd2hhdCByZWFsIGxvb2tzIGxpa2UuPC9iPjwvcD4KICAgICAgPGRpdiBjbGFzcz0ic3Rha2VzIj5SRVdBUkQgT04gVEhFIExJTkUgJm1pZGRvdDsgRVZJREVOQ0UgT05MWTwvZGl2PgogICAgICA8ZGl2IGNsYXNzPSJzZWMiPgogICAgICAgIDxoMj4mIzEwMDIyOyBTZW5kIGJhY2sgdGhlc2Ugc2l4PC9oMj4KICAgICAgICA8ZGl2IGNsYXNzPSJpdGVtIj48c3BhbiBjbGFzcz0ibnVtIj4xPC9zcGFuPgogICAgICAgICAgPGRpdj48aDM+VEhFIFNUUlVDVFVSRSBNRU1PPC9oMz4KICAgICAgICAgIDxwPllvdXIgPGI+b25lLXBhZ2UgbWVtbzwvYj4gY29tcGFyaW5nIHNvbGUgcHJvcHJpZXRvcnNoaXAsIHNpbmdsZS1tZW1iZXIgTExDLCBhbmQgUy1jb3JwLWxhdGVyIG9uIGNvc3QsIHBhcGVyd29yaywgbGlhYmlsaXR5LCBhbmQgdGF4ZXMuIE5hbWUgdGhlIHdpbm5lciBhbmQgZGVmZW5kIGl0IHdpdGggPGI+eW91ciBzdGF0ZSdzIHJlYWwgbnVtYmVyczwvYj4gKGluIENhbGlmb3JuaWEgdGhhdCBtZWFucyBmYWNpbmcgdGhlICQ4MDAveXIgZnJhbmNoaXNlIHRheCBoZWFkLW9uKS4gWW91IGRlZmVuZGVkIHRoaXMgbGl2ZSBiZWZvcmUgZmlsaW5nLCB0aGUgbWVtbyBpcyB0aGUgcmVjZWlwdC48L3A+PC9kaXY+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzcz0iaXRlbSI+PHNwYW4gY2xhc3M9Im51bSI+Mjwvc3Bhbj4KICAgICAgICAgIDxkaXY+PGgzPlRIRSBOQU1FIENIRUNLPC9oMz4KICAgICAgICAgIDxwPlByb29mIHlvdSBjbGVhcmVkIHRoZSBuYW1lIGJlZm9yZSBjb21taXR0aW5nOiA8Yj5zdGF0ZSBidXNpbmVzcyBzZWFyY2gsIGRvbWFpbiwgYW5kIHNvY2lhbCBoYW5kbGVzLjwvYj4gU2NyZWVuc2hvdHMgb2YgYWxsIHRocmVlLiBBIG5hbWUgeW91IGNhbid0IG93biBldmVyeXdoZXJlIGlzIGEgbmFtZSB5b3UgZG9uJ3Qgb3duLjwvcD48L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IGNsYXNzPSJpdGVtIj48c3BhbiBjbGFzcz0ibnVtIj4zPC9zcGFuPgogICAgICAgICAgPGRpdj48aDM+VEhFIEZJTElORzwvaDM+CiAgICAgICAgICA8cD5Db25maXJtYXRpb24gb2YgdGhlIDxiPmFjdHVhbCBmaWxpbmc8L2I+IChEQkEgZm9yIHNvbGUgcHJvcCwgb3IgQXJ0aWNsZXMgb2YgT3JnYW5pemF0aW9uIGZvciBMTEMpLiBJZiB5b3VyIGNvYWNoIGhhZCB0byBzaWduIGJlY2F1c2UgeW91J3JlIGEgbWlub3I6IDxiPnlvdSBwcmVwYXJlZCBpdCwgdGhleSBzaWduZWQgaXQuPC9iPiBTaG93IHRoZSBwcmVwYXJlZCBwYXBlcndvcmsgYW5kIHRoZSBjb25maXJtYXRpb24uPC9wPjwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9Iml0ZW0iPjxzcGFuIGNsYXNzPSJudW0iPjQ8L3NwYW4+CiAgICAgICAgICA8ZGl2PjxoMz5USEUgTU9ORVkgV0FMTDwvaDM+CiAgICAgICAgICA8cD48Yj5FSU4gY29uZmlybWF0aW9uICsgYnVzaW5lc3MgYmFuayBhY2NvdW50LjwvYj4gQkxBQ0sgT1VUIHRoZSBmdWxsIG51bWJlcnMsIHNob3cganVzdCBlbm91Z2ggdG8gcHJvdmUgdGhleSBleGlzdC4gQnVzaW5lc3MgbW9uZXkgbmV2ZXIgdG91Y2hlcyBwZXJzb25hbCBtb25leS4gVGhhdCB3YWxsIGlzIHRoZSB3aG9sZSBsZXNzb24uPC9wPjwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9Iml0ZW0iPjxzcGFuIGNsYXNzPSJudW0iPjU8L3NwYW4+CiAgICAgICAgICA8ZGl2PjxoMz5USEUgQk9PS1M8L2gzPgogICAgICAgICAgPHA+Qm9va2tlZXBpbmcgbGl2ZSwgd2l0aCB5b3VyIGNvbXB1dGVyIGxvZ2dlZCBhcyA8Yj5hc3NldCAjMTwvYj4sIHlvdXIgZmlyc3QgY2FwaXRhbCBleHBlbnNlIG9uIHRoZSBib29rcy4gU2NyZWVuc2hvdCB0aGUgbGVkZ2VyLjwvcD48L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IGNsYXNzPSJpdGVtIj48c3BhbiBjbGFzcz0ibnVtIj42PC9zcGFuPgogICAgICAgICAgPGRpdj48aDM+VEhFIEFJIENBVENIPC9oMz4KICAgICAgICAgIDxwPllvdXIgUGhhc2UgMyA8Yj7igJxBSSBnb3QgaXQgd3JvbmfigJ0gZW50cnkuPC9iPiBMZWdhbCBhbmQgdGF4IGlzIHdoZXJlIHRoZSBBSSBpcyBtb3N0IGNvbmZpZGVudGx5IHdyb25nLCBmZWVzLCBkZWFkbGluZXMsIHdhaXZlcnMgdGhhdCBleHBpcmVkIHllYXJzIGFnby4gRXhhY3QgY2xhaW0sIGFjdHVhbCB0cnV0aCwgaG93IHlvdSBjYXVnaHQgaXQuPC9wPjwvZGl2PgogICAgICAgIDwvZGl2PgoKICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9Indhcm4iPgogICAgICAgIDxoMz4mIzk2NzA7IFdIQVQgR0VUUyBBIFJFU0hJUDwvaDM+CiAgICAgICAgPHA+PGI+QSBtZW1vIHdpdGggbm8gbnVtYmVycy48L2I+IElmIHlvdXIgbWVtbyBjb21wYXJlcyBzdHJ1Y3R1cmVzIGluIHZpYmVzICjigJxMTENzIGFyZSBzYWZlcuKAnSkgd2l0aG91dCB5b3VyIHN0YXRlJ3MgYWN0dWFsIGNvc3RzIGFuZCB0YXhlcywgaXQncyBub3QgYSBkZWNpc2lvbiwgaXQncyBhIGJvb2sgcmVwb3J0LjwvcD4KICAgICAgICA8cD48Yj5NaXhlZCBtb25leS48L2I+IElmIGJ1c2luZXNzIGluY29tZSBpcyBsYW5kaW5nIGluIHlvdXIgcGVyc29uYWwgYWNjb3VudCwgdGhhdCdzIGFuIGF1dG9tYXRpYyByZXNoaXAuIE5vIGV4Y2VwdGlvbnMgb24gdGhpcyBvbmUuPC9wPgoKICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9InNoaXAiPgogICAgICAgIDxoMz4mIzk2NTY7IEhPVyBUTyBTSElQIElUPC9oMz4KICAgICAgICA8cD5SZXBseSB0byB0aGUgZmllbGQgdGVzdCBlbWFpbCB3aXRoIGV2ZXJ5dGhpbmcgYWJvdmUuIFN1YmplY3QgbGluZTogPGNvZGU+eW91ciBjb2RlbmFtZSArIE9QRVJBVElWRSArIFBIQVNFIDM8L2NvZGU+LiBBdHRhY2htZW50cyBhbmQgc2NyZWVuc2hvdHMsIG5vdCBkZXNjcmlwdGlvbnMuIDxiPkV2aWRlbmNlIG9yIGl0IGRpZG4ndCBoYXBwZW4uPC9iPjwvcD4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9ImZvb3QiPgogICAgICAgIDxzcGFuPkRFU0lHTkVEIElOIENBTElGT1JOSUEgJm1pZGRvdDsgREFOTlkgRk9YLUFMVkVSU09OICZ0aW1lczsgQ0xBVURFPC9zcGFuPgogICAgICAgIDxzcGFuIGNsYXNzPSJwdWxzZSI+JiM5NjEyOyBBV0FJVElORyBFVklERU5DRTwvc3Bhbj4KICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KICA8L21haW4+";
+  var gate=document.getElementById("gate"), test=document.getElementById("test"),
+      msg=document.getElementById("msg"), relock=document.getElementById("relock");
+
+  function decode(b64){
+    var raw=atob(b64), bytes=new Uint8Array(raw.length);
+    for(var i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+  function sha256(s){
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then(function(buf){
+      return Array.prototype.map.call(new Uint8Array(buf), function(b){
+        return b.toString(16).padStart(2,"0");
+      }).join("");
+    });
+  }
+  function open_(){
+    test.innerHTML=decode(PAYLOAD);
+    gate.style.display="none";
+    test.className="on";
+    relock.style.display="block";
+    window.scrollTo(0,0);
+  }
+  function lock(){
+    try{localStorage.removeItem(KEY);}catch(e){}
+    test.innerHTML=""; test.className="";
+    relock.style.display="none"; gate.style.display="";
+    msg.className="g-msg"; msg.textContent="";
+    document.getElementById("pw").value="";
+  }
+
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    var code=document.getElementById("code").textContent, btn=this;
+    function done(){btn.textContent="COPIED"; setTimeout(function(){btn.textContent="COPY CODE";},1400);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(done,done);}
+    else{var r=document.createRange();r.selectNodeContents(document.getElementById("code"));
+      var s=getSelection();s.removeAllRanges();s.addRange(r);done();}
+  });
+
+  document.getElementById("gform").addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=document.getElementById("pw").value.trim().toLowerCase();
+    if(!v) return;
+    if(!(window.crypto&&crypto.subtle)){msg.className="g-msg deny";msg.textContent="THIS BROWSER CAN'T RUN THE LOCK. TRY ANOTHER.";return;}
+    sha256(v).then(function(h){
+      if(h===HASH){
+        msg.className="g-msg grant"; msg.textContent="◆ ACCESS GRANTED";
+        try{localStorage.setItem(KEY,"1");}catch(e){}
+        setTimeout(open_,650);
+      }else{
+        msg.className="g-msg deny"; msg.textContent="ACCESS DENIED // TRY AGAIN";
+      }
+    });
+  });
+
+  relock.querySelector("a").addEventListener("click",lock);
+
+  try{if(localStorage.getItem(KEY)==="1") open_();}catch(e){}
+})();
+</script>
+</body>
+</html>

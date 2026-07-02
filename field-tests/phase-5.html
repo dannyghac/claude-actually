@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>PHASE 5 // SHIP IT LIVE &middot; Claude, Actually</title>
+<style>
+  :root{
+    --bg:#05070d;--panel:#0b1020;--ink:#e8f0ff;--dim:#5b6b8c;
+    --green:#27f5a0;--amber:#ffb347;--line:rgba(255,179,71,.22);
+    --mono:"SF Mono","Menlo","Monaco","Consolas",monospace;
+    --display:"Avenir Next","Helvetica Neue",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 70% -10%, rgba(255,179,71,.10), transparent 60%),
+      radial-gradient(900px 500px at 0% 120%, rgba(39,245,160,.08), transparent 55%),
+      var(--bg);
+    color:var(--ink);font-family:var(--mono);min-height:100vh;
+    display:flex;align-items:flex-start;justify-content:center;padding:28px;
+  }
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+    mix-blend-mode:overlay;opacity:.5}
+  .card{width:min(800px,100%);background:linear-gradient(180deg, rgba(11,16,32,.92), rgba(5,7,13,.92));
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02), 0 40px 120px rgba(0,0,0,.6)}
+  .bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);
+    font-size:12px;letter-spacing:.18em;color:var(--dim)}
+  .dot{width:11px;height:11px;border-radius:50%;background:#1e2740;border:1px solid rgba(255,255,255,.06)}
+  .dot.a{background:var(--amber);box-shadow:0 0 12px var(--amber)}
+  .bar .id{margin-left:auto;color:var(--amber)}
+  .body{padding:30px 34px 34px}
+  .stamp{font-family:var(--display);font-weight:800;font-size:clamp(28px,5.5vw,46px);
+    line-height:1.05;letter-spacing:-.02em;color:var(--amber);
+    text-shadow:0 0 28px rgba(255,179,71,.32);margin:4px 0 8px}
+  .lede{color:#cdd8ee;font-size:14.5px;line-height:1.6;font-family:var(--display);margin-bottom:4px}
+  .lede b{color:var(--ink)}
+  .stakes{display:inline-block;margin-top:10px;padding:6px 14px;border-radius:999px;
+    border:1px solid var(--amber);color:var(--amber);font-weight:700;letter-spacing:.04em;font-size:13px}
+  .sec{margin-top:24px}
+  .sec h2{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:12px;color:var(--green)}
+  .item{display:flex;gap:14px;padding:13px 0;border-top:1px dashed rgba(91,107,140,.25)}
+  .item:first-of-type{border-top:0}
+  .num{flex:0 0 26px;height:26px;border-radius:50%;border:1px solid var(--green);color:var(--green);
+    display:flex;align-items:center;justify-content:center;font-size:13px}
+  .item h3{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--green);margin-bottom:5px;text-transform:uppercase}
+  .item p{font-size:14.5px;line-height:1.55;color:var(--ink);font-family:var(--display)}
+  .item b{color:var(--green)}
+  .warn{margin-top:22px;border:1px solid var(--line);border-left:3px solid var(--amber);
+    border-radius:10px;padding:15px 18px;background:rgba(255,179,71,.05)}
+  .warn h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:var(--amber);margin-bottom:8px}
+  .warn p{font-family:var(--display);font-size:14px;line-height:1.6;color:#dfe7f5}
+  .warn p+p{margin-top:8px}
+  .warn b{color:var(--amber)}
+  .ship{margin-top:22px;border:1px dashed var(--green);border-radius:10px;padding:15px 18px;background:rgba(39,245,160,.04)}
+  .ship h3{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;color:var(--green);margin-bottom:8px}
+  .ship p{font-family:var(--display);font-size:14px;line-height:1.6}
+  .ship b{color:var(--green)}
+  .ship code{font-family:var(--mono);font-size:12.5px;background:rgba(255,255,255,.06);
+    padding:1px 7px;border-radius:5px;color:var(--amber)}
+  .foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+    font-size:11px;letter-spacing:.1em;color:var(--dim)}
+  .pulse{color:var(--amber);animation:blink 1.4s steps(2) infinite}
+  @keyframes blink{50%{opacity:.25}}
+</style>
+<style>
+  /* ----- gate (lock screen) ----- */
+  body{flex-direction:column;align-items:center;gap:0}
+  .g-card{width:min(680px,100%);background:linear-gradient(180deg, rgba(11,16,32,.92), rgba(5,7,13,.92));
+    border:1px solid rgba(255,107,107,.25);border-radius:14px;overflow:hidden;
+    box-shadow:0 0 0 1px rgba(255,255,255,.02), 0 40px 120px rgba(0,0,0,.6)}
+  .g-bar{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid rgba(255,107,107,.25);
+    font-size:12px;letter-spacing:.18em;color:var(--dim)}
+  .g-dot{width:11px;height:11px;border-radius:50%;background:#1e2740;border:1px solid rgba(255,255,255,.06)}
+  .g-dot.r{background:#ff6b6b;box-shadow:0 0 12px #ff6b6b}
+  .g-bar .g-id{margin-left:auto;color:#ff6b6b;white-space:nowrap;flex:0 0 auto}
+  .g-bar .g-file{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .g-body{padding:28px 26px 30px}
+  .g-stamp{font-family:var(--display);font-weight:800;font-size:clamp(24px,6vw,40px);line-height:1.05;
+    letter-spacing:-.02em;color:#ff6b6b;text-shadow:0 0 26px rgba(255,107,107,.3);margin-bottom:8px}
+  .g-sub{color:var(--dim);font-size:13.5px;line-height:1.65;font-family:var(--display);margin-bottom:20px}
+  .g-sub b{color:var(--ink)}
+  .g-codebox{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:rgba(39,245,160,.04);margin-bottom:8px}
+  .g-codebox h3{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--green);margin-bottom:10px}
+  .g-code{font-family:var(--mono);font-size:clamp(14px,3.4vw,19px);letter-spacing:.06em;color:var(--amber);
+    word-break:break-all;user-select:all;-webkit-user-select:all;line-height:1.5}
+  .g-copy{margin-top:10px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--green);
+    background:none;border:1px solid var(--green);border-radius:6px;padding:6px 12px;cursor:pointer}
+  .g-copy:active{background:rgba(39,245,160,.15)}
+  .g-hint{font-family:var(--display);font-size:13px;color:var(--dim);line-height:1.6;margin:14px 0 20px}
+  .g-hint b{color:var(--ink)}
+  .g-form{display:flex;gap:10px;flex-wrap:wrap}
+  .g-input{flex:1 1 200px;font-family:var(--mono);font-size:16px;color:var(--ink);background:rgba(255,255,255,.05);
+    border:1px solid var(--line);border-radius:8px;padding:12px 14px;outline:none;letter-spacing:.04em}
+  .g-input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(39,245,160,.15)}
+  .g-btn{font-family:var(--mono);font-size:13px;letter-spacing:.16em;color:#05070d;background:var(--green);
+    border:0;border-radius:8px;padding:12px 22px;cursor:pointer;font-weight:700}
+  .g-btn:active{transform:translateY(1px)}
+  .g-msg{margin-top:14px;font-family:var(--mono);font-size:13px;letter-spacing:.12em;min-height:18px}
+  .g-msg.deny{color:#ff6b6b;animation:g-shake .3s}
+  .g-msg.grant{color:var(--green)}
+  @keyframes g-shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .g-parents{margin-top:22px;padding-top:16px;border-top:1px dashed rgba(91,107,140,.3);
+    font-family:var(--display);font-size:12.5px;line-height:1.6;color:var(--dim)}
+  .g-parents a{color:var(--green);text-decoration:none;border-bottom:1px dotted var(--green)}
+  .g-back{margin:18px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.14em}
+  .g-back a{color:var(--dim);text-decoration:none}
+  .g-back a:hover{color:var(--green)}
+  #test{width:100%;display:none;justify-content:center}
+  #test.on{display:flex}
+  .g-relock{margin:16px 0 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-align:center;width:100%}
+  .g-relock a{color:var(--dim);text-decoration:none;cursor:pointer}
+</style>
+</head>
+<body>
+  <div id="gate">
+    <main class="g-card">
+      <div class="g-bar">
+        <span class="g-dot r"></span><span class="g-dot"></span><span class="g-dot"></span>
+        <span class="g-file">encrypted_container</span><span class="g-id">&#9612; LOCKED</span>
+      </div>
+      <div class="g-body">
+        <div class="g-stamp">PHASE 5 // SHIP IT LIVE</div>
+        <p class="g-sub">This file is <b>locked</b>. The string below is not the password &mdash; it's the password, <b>encoded</b>. Decode it, type what it says, and you're in. That's the whole test before the test.</p>
+        <div class="g-codebox">
+          <h3>&#9670; ACCESS CODE &middot; ATBASH</h3>
+          <div class="g-code" id="code">UrevHvxlmwh</div>
+          <button class="g-copy" id="copyBtn" type="button">COPY CODE</button>
+        </div>
+        <p class="g-hint"><b>How to crack it:</b> The alphabet, looking into a mirror: the first letter trades with the last, the second with the second-to-last, all the way through. Ancient scribes used it. Paste it into your AI and ask what it says.</p>
+        <form class="g-form" id="gform">
+          <input class="g-input" id="pw" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="decoded password">
+          <button class="g-btn" type="submit">UNLOCK &#9656;</button>
+        </form>
+        <div class="g-msg" id="msg"></div>
+        <p class="g-parents"><b>Parent?</b> This is a playable demo. The full program guide is <a href="../founder-kit.html">here</a>. Stuck on the code? Crack it the same way your kid will &mdash; paste it into Claude or ChatGPT and ask what it is.</p>
+      </div>
+    </main>
+    <p class="g-back"><a href="index.html">&#8592; ALL FIELD TESTS</a></p>
+  </div>
+  <div id="test"></div>
+  <p class="g-relock" id="relock" style="display:none"><a id="relockBtn">&#9612; LOCK IT AGAIN</a></p>
+
+<script>
+(function(){
+  var HASH="50af28694de7e8a2204268e5322490af350b7d31bebe06fae0d67e8553be4be8", KEY="ca_ft_phase5", PAYLOAD="ICA8bWFpbiBjbGFzcz0iY2FyZCI+CiAgICA8ZGl2IGNsYXNzPSJiYXIiPgogICAgICA8c3BhbiBjbGFzcz0iZG90IGEiPjwvc3Bhbj48c3BhbiBjbGFzcz0iZG90Ij48L3NwYW4+PHNwYW4gY2xhc3M9ImRvdCI+PC9zcGFuPgogICAgICA8c3Bhbj5maWVsZF90ZXN0XzUuZXhlPC9zcGFuPjxzcGFuIGNsYXNzPSJpZCI+UEhBU0UgNSAvLyBWRVJJRklDQVRJT048L3NwYW4+CiAgICA8L2Rpdj4KICAgIDxkaXYgY2xhc3M9ImJvZHkiPgogICAgICA8ZGl2IGNsYXNzPSJzdGFtcCI+U0hJUCBJVCBMSVZFLjwvZGl2PgogICAgICA8cCBjbGFzcz0ibGVkZSI+QSB3ZWJzaXRlIGluIHByb2dyZXNzIGlzIGEgcnVtb3IuIFRoaXMgcGhhc2UgcGF5cyBvbiBhIHJlYWwgc2l0ZSwgbGl2ZSBvbiB5b3VyIG93biBkb21haW4sIHRoYXQgYSBzdHJhbmdlciBjYW4gdW5kZXJzdGFuZCBpbiA8Yj5maXZlIHNlY29uZHM8L2I+IGFuZCBhY3Qgb24gaW4gPGI+dGhpcnR5LjwvYj4gQ29yZSBidWlsZCBvbmx5LCBTRU8gcG9saXNoIGNvbWVzIGFmdGVyIGFuZCBkb2VzbuKAmXQgZ2F0ZSB0aGUgbW9uZXkuPC9wPgogICAgICA8ZGl2IGNsYXNzPSJzdGFrZXMiPlJFV0FSRCBPTiBUSEUgTElORSAmbWlkZG90OyBFVklERU5DRSBPTkxZPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9InNlYyI+CiAgICAgICAgPGgyPiYjMTAwMjI7IFNlbmQgYmFjayB0aGVzZSBzaXg8L2gyPgogICAgICAgIDxkaXYgY2xhc3M9Iml0ZW0iPjxzcGFuIGNsYXNzPSJudW0iPjE8L3NwYW4+CiAgICAgICAgICA8ZGl2PjxoMz5USEUgTElWRSBVUkw8L2gzPgogICAgICAgICAgPHA+VGhlIGFkZHJlc3MsIDxiPmxpdmUgb24gWU9VUiBkb21haW4uPC9iPiBOb3QgYSBwcmV2aWV3IGxpbmssIG5vdCBhIHN0YWdpbmcgVVJMLCBub3Qg4oCcYWxtb3N0IGNvbm5lY3RlZC7igJ08L3A+PC9kaXY+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzcz0iaXRlbSI+PHNwYW4gY2xhc3M9Im51bSI+Mjwvc3Bhbj4KICAgICAgICAgIDxkaXY+PGgzPlRIRSBQSE9ORSBXQUxLVEhST1VHSDwvaDM+CiAgICAgICAgICA8cD5BIHNjcmVlbiByZWNvcmRpbmcgPGI+b24geW91ciBwaG9uZTwvYj4sIHNjcm9sbGluZyB0aGUgd2hvbGUgc2l0ZTogaG9tZSwgYWJvdXQsIHByb2R1Y3Qvc2VydmljZSwgY29udGFjdCwgZm9vdGVyIGxlZ2FsIGxpbmtzLiBNb2JpbGUtZmlyc3Qgd2FzIHRoZSBiYXIuIFByb3ZlIGl0IHdoZXJlIGl0IGNvdW50cy48L3A+PC9kaXY+CiAgICAgICAgPC9kaXY+CiAgICAgICAgPGRpdiBjbGFzcz0iaXRlbSI+PHNwYW4gY2xhc3M9Im51bSI+Mzwvc3Bhbj4KICAgICAgICAgIDxkaXY+PGgzPlRIRSBQQUdFUzwvaDM+CiAgICAgICAgICA8cD48Yj5Ib21lcGFnZSwgQWJvdXQsIFByb2R1Y3QvU2VydmljZSwgQ29udGFjdCwgYW5kIGEgZm9vdGVyIHdpdGggcHJpdmFjeSArIHRlcm1zLjwvYj4gQWxsIHJlYWwsIGFsbCByZWFjaGFibGUsIG5vIGRlYWQgbGlua3MuPC9wPjwvZGl2PgogICAgICAgIDwvZGl2PgogICAgICAgIDxkaXYgY2xhc3M9Iml0ZW0iPjxzcGFuIGNsYXNzPSJudW0iPjQ8L3NwYW4+CiAgICAgICAgICA8ZGl2PjxoMz5USEUgQ09QWTwvaDM+CiAgICAgICAgICA8cD5FdmVyeSB3b3JkIDxiPnlvdXJzPC9iPiwgQUkgYXMgZWRpdG9yLCBub3QgYXV0aG9yLiBBdHRhY2ggYSBkcmFmdCBuZXh0IHRvIHRoZSBmaW5hbCBzbyBJIGNhbiBzZWUgeW91ciBoYW5kIGluIGl0LCBhbmQgYmUgcmVhZHkgdG8gZGVmZW5kIGFueSBwYXJhZ3JhcGggbGl2ZS4gSWYgeW91IHBhc3RlZCBjb2RlIGFueXdoZXJlLCB5b3UgY2FuIGV4cGxhaW4gd2hhdCBpdCBkb2VzLjwvcD48L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IGNsYXNzPSJpdGVtIj48c3BhbiBjbGFzcz0ibnVtIj41PC9zcGFuPgogICAgICAgICAgPGRpdj48aDM+VEhFIFBJUEU8L2gzPgogICAgICAgICAgPHA+UHJvb2YgbW9uZXkgb3IgbGVhZHMgY2FuIGZsb3c6IDxiPmEgdGVzdCB0cmFuc2FjdGlvbiBvciBhIGNhcHR1cmVkIHRlc3QgbGVhZDwvYj4sIHBsdXMgeW91ciByZWFsIGVtYWlsIGFkZHJlc3Mgb24gdGhlIGRvbWFpbi4gU2NyZWVuc2hvdCB0aGUgY29uZmlybWF0aW9uLjwvcD48L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgICA8ZGl2IGNsYXNzPSJpdGVtIj48c3BhbiBjbGFzcz0ibnVtIj42PC9zcGFuPgogICAgICAgICAgPGRpdj48aDM+VEhFIEFJIENBVENIPC9oMz4KICAgICAgICAgIDxwPllvdXIgUGhhc2UgNSA8Yj7igJxBSSBnb3QgaXQgd3JvbmfigJ0gZW50cnkuPC9iPiBXZWIgYnVpbGRzIGFyZSBmdWxsIG9mIGl0LCBwbGF0Zm9ybSBmZWF0dXJlcyB0aGF0IGRvbid0IGV4aXN0LCBzZXR0aW5ncyBtZW51cyB0aGF0IG1vdmVkLCBjb2RlIHRoYXQg4oCcd29ya3PigJ0gYW5kIGRvZXNuJ3QuIENsYWltLCB0cnV0aCwgaG93IHlvdSBjYXVnaHQgaXQuPC9wPjwvZGl2PgogICAgICAgIDwvZGl2PgoKICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9Indhcm4iPgogICAgICAgIDxoMz4mIzk2NzA7IFdIQVQgR0VUUyBBIFJFU0hJUDwvaDM+CiAgICAgICAgPHA+PGI+UGxhY2Vob2xkZXJzLjwvYj4gT25lIGxvcmVtIGlwc3VtLCBvbmUgZGVhZCBsaW5rLCBvbmUgc3RvY2sg4oCcWW91ciBIZWFkbGluZSBIZXJl4oCdIGFuZCB0aGUgd2hvbGUgdGhpbmcgY29tZXMgYmFjay4gU3RyYW5nZXJzIGRvbid0IGdyYWRlIG9uIGludGVudC48L3A+CiAgICAgICAgPHA+PGI+Q29weSB5b3UgY2FuJ3QgZGVmZW5kLjwvYj4gSWYgSSBwaWNrIGEgcGFyYWdyYXBoIGF0IGNoZWNrLWluIGFuZCB5b3UgY2FuJ3QgdGVsbCBtZSB3aHkgaXQgc2F5cyB3aGF0IGl0IHNheXMsIHRoZSBBSSB3cm90ZSB5b3VyIHNpdGUgYW5kIHlvdSdyZSBqdXN0IHJlbnRpbmcgaXQuPC9wPgoKICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9InNoaXAiPgogICAgICAgIDxoMz4mIzk2NTY7IEhPVyBUTyBTSElQIElUPC9oMz4KICAgICAgICA8cD5SZXBseSB0byB0aGUgZmllbGQgdGVzdCBlbWFpbCB3aXRoIGV2ZXJ5dGhpbmcgYWJvdmUuIFN1YmplY3QgbGluZTogPGNvZGU+eW91ciBjb2RlbmFtZSArIE9QRVJBVElWRSArIFBIQVNFIDU8L2NvZGU+LiBBdHRhY2htZW50cyBhbmQgc2NyZWVuc2hvdHMsIG5vdCBkZXNjcmlwdGlvbnMuIDxiPkV2aWRlbmNlIG9yIGl0IGRpZG4ndCBoYXBwZW4uPC9iPjwvcD4KICAgICAgPC9kaXY+CiAgICAgIDxkaXYgY2xhc3M9ImZvb3QiPgogICAgICAgIDxzcGFuPkRFU0lHTkVEIElOIENBTElGT1JOSUEgJm1pZGRvdDsgREFOTlkgRk9YLUFMVkVSU09OICZ0aW1lczsgQ0xBVURFPC9zcGFuPgogICAgICAgIDxzcGFuIGNsYXNzPSJwdWxzZSI+JiM5NjEyOyBBV0FJVElORyBFVklERU5DRTwvc3Bhbj4KICAgICAgPC9kaXY+CiAgICA8L2Rpdj4KICA8L21haW4+";
+  var gate=document.getElementById("gate"), test=document.getElementById("test"),
+      msg=document.getElementById("msg"), relock=document.getElementById("relock");
+
+  function decode(b64){
+    var raw=atob(b64), bytes=new Uint8Array(raw.length);
+    for(var i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+  function sha256(s){
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then(function(buf){
+      return Array.prototype.map.call(new Uint8Array(buf), function(b){
+        return b.toString(16).padStart(2,"0");
+      }).join("");
+    });
+  }
+  function open_(){
+    test.innerHTML=decode(PAYLOAD);
+    gate.style.display="none";
+    test.className="on";
+    relock.style.display="block";
+    window.scrollTo(0,0);
+  }
+  function lock(){
+    try{localStorage.removeItem(KEY);}catch(e){}
+    test.innerHTML=""; test.className="";
+    relock.style.display="none"; gate.style.display="";
+    msg.className="g-msg"; msg.textContent="";
+    document.getElementById("pw").value="";
+  }
+
+  document.getElementById("copyBtn").addEventListener("click",function(){
+    var code=document.getElementById("code").textContent, btn=this;
+    function done(){btn.textContent="COPIED"; setTimeout(function(){btn.textContent="COPY CODE";},1400);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(code).then(done,done);}
+    else{var r=document.createRange();r.selectNodeContents(document.getElementById("code"));
+      var s=getSelection();s.removeAllRanges();s.addRange(r);done();}
+  });
+
+  document.getElementById("gform").addEventListener("submit",function(e){
+    e.preventDefault();
+    var v=document.getElementById("pw").value.trim().toLowerCase();
+    if(!v) return;
+    if(!(window.crypto&&crypto.subtle)){msg.className="g-msg deny";msg.textContent="THIS BROWSER CAN'T RUN THE LOCK. TRY ANOTHER.";return;}
+    sha256(v).then(function(h){
+      if(h===HASH){
+        msg.className="g-msg grant"; msg.textContent="◆ ACCESS GRANTED";
+        try{localStorage.setItem(KEY,"1");}catch(e){}
+        setTimeout(open_,650);
+      }else{
+        msg.className="g-msg deny"; msg.textContent="ACCESS DENIED // TRY AGAIN";
+      }
+    });
+  });
+
+  relock.querySelector("a").addEventListener("click",lock);
+
+  try{if(localStorage.getItem(KEY)==="1") open_();}catch(e){}
+})();
+</script>
+</body>
+</html>

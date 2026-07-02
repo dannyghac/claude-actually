@@ -38,8 +38,16 @@ KIT_NAME = "claude-actually-coach-kit"
 PHASES = [
     {"n": 1, "title": "FIELD TEST", "enc": "hex", "password": "TrustButVerify",
      "site_src": "field-tests/phase1-site.html", "coach_src": "field-tests/phase1-coach.html"},
-    {"n": 2, "title": "PROVE THE IDEA", "enc": "rot13", "password": "TalkToHumans",
+    {"n": 2, "title": "PROVE THE IDEA", "enc": "rot13", "password": "ProveThePick",
      "site_src": "field-tests/phase2-site.html", "coach_src": "field-tests/phase2-coach.html"},
+    {"n": 3, "title": "MAKE IT REAL", "enc": "binary", "password": "MoneyWall",
+     "site_src": "field-tests/phase3-site.html", "coach_src": "field-tests/phase3-coach.html"},
+    {"n": 4, "title": "DON'T BLEND IN", "enc": "morse", "password": "SHOWDONTTELL",
+     "site_src": "field-tests/phase4-site.html", "coach_src": "field-tests/phase4-coach.html"},
+    {"n": 5, "title": "SHIP IT LIVE", "enc": "atbash", "password": "StrangerTest",
+     "site_src": "field-tests/phase5-site.html", "coach_src": "field-tests/phase5-coach.html"},
+    {"n": 6, "title": "GO GET PAID", "enc": "caesar3", "password": "HonestNumbers",
+     "site_src": "field-tests/phase6-site.html", "coach_src": "field-tests/phase6-coach.html"},
 ]
 
 PDFS = [
@@ -50,6 +58,7 @@ PDFS = [
     "Founder-Quest.pdf",
     "Phase-Checks.pdf",
     "Field-Test-Rubrics.pdf",
+    "Field-Test-Emails.pdf",
 ]
 
 COACH_NOTE = ('<p class="g-parents"><b>Coach:</b> the access code and password for every '
@@ -205,24 +214,24 @@ CONFIG_PAGE = r"""<!DOCTYPE html>
             <input type="text" id="reward2" autocomplete="off" placeholder="a camping trip">
           </div>
         </div>
-        <div class="row2 soon">
+        <div class="row2">
           <div>
-            <label>PHASE 3 &middot; COMING SOON</label>
-            <input type="text" id="reward3" autocomplete="off" placeholder="(you can still agree on it now)">
+            <label for="reward3">PHASE 3 &middot; MAKE IT REAL</label>
+            <input type="text" id="reward3" autocomplete="off" placeholder="a new business tool they pick">
           </div>
           <div>
-            <label>PHASE 4 &middot; COMING SOON</label>
-            <input type="text" id="reward4" autocomplete="off" placeholder="">
+            <label for="reward4">PHASE 4 &middot; DON'T BLEND IN</label>
+            <input type="text" id="reward4" autocomplete="off" placeholder="movie night, their pick">
           </div>
         </div>
-        <div class="row2 soon">
+        <div class="row2">
           <div>
-            <label>PHASE 5 &middot; COMING SOON</label>
-            <input type="text" id="reward5" autocomplete="off" placeholder="">
+            <label for="reward5">PHASE 5 &middot; SHIP IT LIVE</label>
+            <input type="text" id="reward5" autocomplete="off" placeholder="the biggest one, site goes live">
           </div>
           <div>
-            <label>PHASE 6 &middot; COMING SOON</label>
-            <input type="text" id="reward6" autocomplete="off" placeholder="">
+            <label for="reward6">PHASE 6 &middot; GO GET PAID</label>
+            <input type="text" id="reward6" autocomplete="off" placeholder="launch dinner + they keep the revenue">
           </div>
         </div>
       </fieldset>
@@ -231,15 +240,35 @@ CONFIG_PAGE = r"""<!DOCTYPE html>
         <summary>&#9656; ADVANCED: SET YOUR OWN PASSWORDS</summary>
         <fieldset>
           <legend>PASSWORDS</legend>
-          <p class="sub" style="margin-bottom:4px">The defaults work fine. Set your own and your family's codes exist nowhere else. Letters and numbers, no spaces; the check ignores capitalization.</p>
+          <p class="sub" style="margin-bottom:4px">The defaults work fine. Set your own and your family's codes exist nowhere else. Letters and numbers only, no spaces; the check ignores capitalization. The cipher ladder escalates on purpose &mdash; every phase is a lock they've never seen.</p>
           <div class="row2">
             <div>
-              <label for="pw1">PHASE 1 PASSWORD (encoded as HEX)</label>
+              <label for="pw1">PHASE 1 PASSWORD (HEX)</label>
               <input type="text" id="pw1" autocomplete="off">
             </div>
             <div>
-              <label for="pw2">PHASE 2 PASSWORD (encoded as ROT13)</label>
+              <label for="pw2">PHASE 2 PASSWORD (ROT13)</label>
               <input type="text" id="pw2" autocomplete="off">
+            </div>
+          </div>
+          <div class="row2">
+            <div>
+              <label for="pw3">PHASE 3 PASSWORD (BINARY)</label>
+              <input type="text" id="pw3" autocomplete="off">
+            </div>
+            <div>
+              <label for="pw4">PHASE 4 PASSWORD (MORSE)</label>
+              <input type="text" id="pw4" autocomplete="off">
+            </div>
+          </div>
+          <div class="row2">
+            <div>
+              <label for="pw5">PHASE 5 PASSWORD (ATBASH)</label>
+              <input type="text" id="pw5" autocomplete="off">
+            </div>
+            <div>
+              <label for="pw6">PHASE 6 PASSWORD (CAESAR)</label>
+              <input type="text" id="pw6" autocomplete="off">
             </div>
           </div>
         </fieldset>
@@ -287,7 +316,32 @@ var DATA = %%DATA%%;
       return String.fromCharCode((c.charCodeAt(0) - base + 13) % 26 + base);
     });
   }
-  var ENCODE = { hex: hexEncode, rot13: rot13 };
+  function binaryEncode(s){
+    var bytes = new TextEncoder().encode(s), out = [];
+    for (var i = 0; i < bytes.length; i++) out.push(bytes[i].toString(2).padStart(8, "0"));
+    return out.join(" ");
+  }
+  var MORSE = {A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",I:"..",
+    J:".---",K:"-.-",L:".-..",M:"--",N:"-.",O:"---",P:".--.",Q:"--.-",R:".-.",S:"...",
+    T:"-",U:"..-",V:"...-",W:".--",X:"-..-",Y:"-.--",Z:"--..","0":"-----","1":".----",
+    "2":"..---","3":"...--","4":"....-","5":".....","6":"-....","7":"--...","8":"---..","9":"----."};
+  function morseEncode(s){
+    return s.toUpperCase().split("").map(function(c){ return MORSE[c]; }).join(" ");
+  }
+  function atbash(s){
+    return s.replace(/[a-zA-Z]/g, function(c){
+      return c <= "Z" ? String.fromCharCode(90 - (c.charCodeAt(0) - 65))
+                      : String.fromCharCode(122 - (c.charCodeAt(0) - 97));
+    });
+  }
+  function caesar3(s){
+    return s.replace(/[a-zA-Z]/g, function(c){
+      var base = c <= "Z" ? 65 : 97;
+      return String.fromCharCode((c.charCodeAt(0) - base + 3) % 26 + base);
+    });
+  }
+  var ENCODE = { hex: hexEncode, rot13: rot13, binary: binaryEncode,
+                 morse: morseEncode, atbash: atbash, caesar3: caesar3 };
   function sha256(s){
     return crypto.subtle.digest("SHA-256", new TextEncoder().encode(s)).then(function(buf){
       return Array.prototype.map.call(new Uint8Array(buf), function(b){
@@ -340,8 +394,8 @@ var DATA = %%DATA%%;
     if (!f.codename){ bad.push("codename"); $("codename").classList.add("err"); }
     DATA.phases.forEach(function(p){
       if (!f.rewards[p.n]){ bad.push("Phase " + p.n + " reward"); $("reward" + p.n).classList.add("err"); }
-      if (!f.passwords[p.n] || /\s/.test(f.passwords[p.n])){
-        bad.push("Phase " + p.n + " password (no spaces)"); $("pw" + p.n).classList.add("err");
+      if (!/^[A-Za-z0-9]+$/.test(f.passwords[p.n] || "")){
+        bad.push("Phase " + p.n + " password (letters and numbers only)"); $("pw" + p.n).classList.add("err");
       }
     });
     return bad;
@@ -390,13 +444,11 @@ var DATA = %%DATA%%;
                  "  access code (" + p.enc.toUpperCase() + "): " + ENCODE[p.enc](f.passwords[p.n]) + "\n" +
                  "  password: " + f.passwords[p.n] + "\n" +
                  "  reward: " + f.rewards[p.n] + "\n\n";
-        download("PHASE-" + p.n + "_FIELD-TEST.html", pages[i], "text/html");
+        setTimeout(function(){ download("PHASE-" + p.n + "_FIELD-TEST.html", pages[i], "text/html"); }, i * 300);
       });
-      for (var i = 3; i <= 6; i++){
-        if (f.rewards[i]) codes += "PHASE " + i + " (COMING SOON)\n  reward agreed: " + f.rewards[i] + "\n\n";
-      }
-      setTimeout(function(){ download("CODES.txt", codes); }, 400);
-      setTimeout(function(){ download("family-file.json", JSON.stringify(f, null, 2), "application/json"); }, 800);
+      var after = DATA.phases.length * 300;
+      setTimeout(function(){ download("CODES.txt", codes); }, after + 300);
+      setTimeout(function(){ download("family-file.json", JSON.stringify(f, null, 2), "application/json"); }, after + 600);
       say("ok", "◆ KIT GENERATED. " + DATA.phases.length + " field tests + CODES.txt + family-file.json are downloading. Give the field tests to " + f.codename + ". CODES.txt is yours.");
     }).catch(function(e){ say("bad", "GENERATION FAILED: " + e); });
   });

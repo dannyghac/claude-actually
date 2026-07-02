@@ -37,6 +37,37 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 TEMPLATE = HERE / "gate_template.html"
 
+MORSE = {
+    "A": ".-", "B": "-...", "C": "-.-.", "D": "-..", "E": ".", "F": "..-.",
+    "G": "--.", "H": "....", "I": "..", "J": ".---", "K": "-.-", "L": ".-..",
+    "M": "--", "N": "-.", "O": "---", "P": ".--.", "Q": "--.-", "R": ".-.",
+    "S": "...", "T": "-", "U": "..-", "V": "...-", "W": ".--", "X": "-..-",
+    "Y": "-.--", "Z": "--..", "0": "-----", "1": ".----", "2": "..---",
+    "3": "...--", "4": "....-", "5": ".....", "6": "-....", "7": "--...",
+    "8": "---..", "9": "----.",
+}
+
+
+def _atbash(s):
+    def flip(c):
+        if "a" <= c <= "z":
+            return chr(ord("z") - (ord(c) - ord("a")))
+        if "A" <= c <= "Z":
+            return chr(ord("Z") - (ord(c) - ord("A")))
+        return c
+    return "".join(flip(c) for c in s)
+
+
+def _caesar3(s):
+    def shift(c):
+        if "a" <= c <= "z":
+            return chr((ord(c) - ord("a") + 3) % 26 + ord("a"))
+        if "A" <= c <= "Z":
+            return chr((ord(c) - ord("A") + 3) % 26 + ord("A"))
+        return c
+    return "".join(shift(c) for c in s)
+
+
 ENCODERS = {
     "hex": {
         "encode": lambda s: s.encode("utf-8").hex(),
@@ -47,6 +78,26 @@ ENCODERS = {
         "encode": lambda s: codecs.encode(s, "rot13"),
         "label": "ROT13",
         "hint": "Paste the code into your AI and ask what it says. It's an old cipher &mdash; Julius Caesar could have cracked this one.",
+    },
+    "binary": {
+        "encode": lambda s: " ".join(format(b, "08b") for b in s.encode("utf-8")),
+        "label": "BINARY",
+        "hint": "No letters this time. This is the rawest form a computer speaks. Paste it into your AI and ask what it says.",
+    },
+    "morse": {
+        "encode": lambda s: " ".join(MORSE[c] for c in s.upper()),
+        "label": "MORSE",
+        "hint": "This code is older than computers, older than the lightbulb. People sent it across oceans with beeps. Paste it into your AI and ask what it says.",
+    },
+    "atbash": {
+        "encode": _atbash,
+        "label": "ATBASH",
+        "hint": "The alphabet, looking into a mirror: the first letter trades with the last, the second with the second-to-last, all the way through. Ancient scribes used it. Paste it into your AI and ask what it says.",
+    },
+    "caesar3": {
+        "encode": _caesar3,
+        "label": "CAESAR",
+        "hint": "The oldest trick in the book. A general used it to send battle orders two thousand years ago, and it held, because his enemies couldn't read it. You can. Paste it into your AI and ask what it says.",
     },
 }
 
